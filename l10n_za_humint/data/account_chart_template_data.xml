@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="0">
 
-    <menuitem id="account_reports_za_statements_menu" name="South Africa" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_user"/>
+    <menuitem id="account_reports_za_statements_humint_menu" name="HuMint" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_user"/>
 
     <record id="default_chart_template_humint" model="account.chart.template">
         <field name="name">South African Chart of Accounts - HuMint</field>

@@ -4,7 +4,7 @@
 
     <record id="mini_income_statement" model="account.financial.html.report">
         <field name="name">Mini Income Statement</field>
-        <field name='parent_id' ref='l10n_za.account_reports_za_statements_menu'/>
+        <field name='parent_id' ref='l10n_za_humint.account_reports_za_statements_humint_menu'/>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name="tax_report" eval="0"/>
