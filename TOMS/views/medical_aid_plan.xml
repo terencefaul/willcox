@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="medical_aid_plan_tree_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan</field>
+            <field name="model">medical.aid.plan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="plan_code"/>
+                    <field name="medical_aid_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_aid_plan_search_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan</field>
+            <field name="model">medical.aid.plan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                    <field name="code"/>
+                    <field name="plan_code"/>
+                    <field name="medical_aid_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="medical_aid_plan_form_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan</field>
+            <field name="model">medical.aid.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Name/Description" required="1"/>
+                        </h1>
+                        <group col="4">
+                            <field name="code" required="1"/>
+                            <field name="plan_code"/>
+                            <field name="medical_aid_id"
+                                   context="{'default_customer':False,'default_is_a_medical_aid':True,'from_customer':True}"
+                                   domain="[('is_a_medical_aid','=',True)]" required="1"/>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medical_aid_plan" model="ir.actions.act_window">
+            <field name="name">Medical Aid Plan</field>
+            <field name="res_model">medical.aid.plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="medical_aid_plan_option_tree_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan Option</field>
+            <field name="model">medical.aid.plan.option</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="plan_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="destination_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_aid_plan_option_search_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan Option</field>
+            <field name="model">medical.aid.plan.option</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                    <field name="code"/>
+                    <field name="plan_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="destination_code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="medical_aid_plan_option_form_view" model="ir.ui.view">
+            <field name="name">Medical Aid Plan Option</field>
+            <field name="model">medical.aid.plan.option</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Name" required="1"/>
+                        </h1>
+                        <group col="4">
+                            <field name="code"/>
+                            <field name="plan_id"/>
+                            <field name="pricelist_id"/>
+                            <field name="comment"/>
+                            <field name="destination_code"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medical_aid_plan_option" model="ir.actions.act_window">
+            <field name="name">Medical Aid Plan Option</field>
+            <field name="res_model">medical.aid.plan.option</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+            <!--Main Medical Aid Menus-->
+        <menuitem id="main_menu_medical_aid" web_icon="TOMS,static/description/medaid.png" name="Medical Aids" sequence="2" />
+
+            <menuitem id="main_menu_medical_aids" name="Medical Aid" sequence="1" parent="main_menu_medical_aid"/>
+                <menuitem id="sub_menu_medical_aids" sequence="1" name="Medical Aids" parent="main_menu_medical_aids" action="action_medical_aid_1"/>
+                <menuitem id="menu_medical_aid_plan" sequence="1" name="Medical Aid Plan" parent="main_menu_medical_aids" action="action_medical_aid_plan"/>
+                <menuitem id="menu_medical_aid_plan_option" sequence="2" name="Medical Aid Plan Options" parent="main_menu_medical_aids" action="action_medical_aid_plan_option"/>
+
+            <menuitem id="menu_medical_aid_adminisrator" sequence="2" name="Medical Aid Administrator" parent="main_menu_medical_aid" action="action_medical_aid_administrator"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_group_1" model="account.group">
+            <field name="name">Income</field>
+            <field name="code_prefix">500</field>
+            <field name="id">1</field>
+        </record>
+
+        <record id="account_group_2" model="account.group">
+            <field name="name">Cost of Sales</field>
+            <field name="code_prefix">202</field>
+        </record>
+        <record id="account_group_3" model="account.group">
+            <field name="name">Fixed Assets</field>
+            <field name="code_prefix">160</field>
+        </record>
+        <record id="account_group_4" model="account.group">
+            <field name="name">Inventory</field>
+            <field name="code_prefix">100</field>
+        </record>
+        <record id="account_group_5" model="account.group">
+            <field name="name">Other Expenses</field>
+        </record>
+        <record id="account_group_6" model="account.group">
+            <field name="name">Rent Expense</field>
+            <field name="code_prefix">515</field>
+        </record>
+        <record id="account_group_7" model="account.group">
+            <field name="name">Depreciation</field>
+            <field name="code_prefix">6200</field>
+        </record>
+        <record id="account_group_8" model="account.group">
+            <field name="name">Salaries</field>
+            <field name="code_prefix">525</field>
+        </record>
+        <record id="account_group_9" model="account.group">
+            <field name="name">Current Tax</field>
+        </record>
+        <record id="account_group_10" model="account.group">
+            <field name="name">Other Income</field>
+            <field name="code_prefix">5002</field>
+        </record>
+        <record id="account_group_11" model="account.group">
+            <field name="name">Current Assets</field>
+        </record>
+        <record id="account_group_12" model="account.group">
+            <field name="name">Accumulated Depreciation</field>
+        </record>
+        <record id="account_group_13" model="account.group">
+            <field name="name">Sundry Debtors</field>
+        </record>  
+        <record id="account_group_14" model="account.group">
+            <field name="name">Sundry Creditors</field>
+        </record>
+        <record id="account_group_15" model="account.group">
+            <field name="name">Value Added Tax</field>
+        </record>
+        <record id="account_group_16" model="account.group">
+            <field name="name">Debtors</field>
+        </record>
+        <record id="account_group_17" model="account.group">
+            <field name="name">Creditors</field>
+        </record>
+        <record id="account_group_18" model="account.group">
+            <field name="name">Finance Cost</field>
+        </record>
+    </data>
+</odoo>

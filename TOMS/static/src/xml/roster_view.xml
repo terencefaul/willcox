@@ -1,0 +1,61 @@
+<template>
+    <div t-name="ResourceViewId" style="width:100%">
+        <div class="container-fluid" style="margin-top:5px;margin-bottom:5px">
+            <div class="row" style="margin:0px;">
+                <div class="col-md-10 o_calendar_view" style="padding:0">
+                    <div id='backend_resource_view' style="height:82vh"></div>
+                </div>
+                <div class="col-md-2 o_calendar_container" style="padding-right: 0;">
+                    <div class="row" style="margin:0px;">
+                        <div class="col-md-12 o_calendar_sidebar_container" style="padding: 0;flex: unset;">
+                            <div class="o_calendar_mini"/>
+                        </div>
+                        <div class="col-md-12 o_calendar_sidebar_container" style="padding: 0;flex: unset;">
+                            <div class="o_calendar_filters"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div t-name="TOMS.RosterViewOptometrist">
+        <div class="o_calendar_filter" style="padding-left:0px;padding-right:0px;">
+            <h3>
+                Optometrist
+            </h3>
+            <div class="o_calendar_filter_items">
+                <div t-foreach="widget.optometrist" t-as="filter"
+                     class="o_calendar_filter_item" t-att-data-value="filter.title" t-att-data-id="filter.id">
+                    <div class="custom-control custom-control-inline custom-checkbox" style="padding:0px;">
+                        <input type="checkbox" t-if="filter.active_roster_view == true"
+                               t-att-data-id="filter.id"
+                               name="selection"
+                               class="optometrist_checkbox custom-control-input"
+                               checked="checked" style="position:relative;z-index:11111;"/>
+                        <input type="checkbox" t-if="filter.active_roster_view == false"
+                               t-att-data-id="filter.id"
+                               name="selection"
+                               class="optometrist_checkbox custom-control-input" style="position:relative;z-index:11111;"/>
+                        <label class="custom-control-label">
+                            <t t-if="filter.image">
+                                <img t-att-src="'data:image/png;base64,'+filter.image"
+                                     class="o_cal_avatar" alt="Avatar"/>
+                            </t>
+                            <span t-attf-style="border-bottom: 4px solid #{filter.calendar_bg_color};">
+                                <t t-esc="filter.title"/>
+                            </span>
+                            <i class="fa fa-times remove_optometrist_from_favourite" style="cursor:pointer;" t-att-data-id="filter.id"/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-md-12">
+                    <input type="text" id="user_autocomplete" autocomplete="off" class="o_input" placeholder="add optometrist"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</template>

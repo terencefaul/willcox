@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_occupaiton_1" model="customer.occupation">
+            <field name="name">Accountant</field>
+        </record>
+        <record id="customer_occupaiton_2" model="customer.occupation">
+            <field name="name">Teacher</field>
+        </record>
+        <record id="customer_occupaiton_3" model="customer.occupation">
+            <field name="name">Engineer</field>
+        </record>
+        <record id="customer_occupaiton_4" model="customer.occupation">
+            <field name="name">Doctor</field>
+        </record>
+        <record id="customer_occupaiton_5" model="customer.occupation">
+            <field name="name">Musician</field>
+        </record>
+        <record id="customer_occupaiton_6" model="customer.occupation">
+            <field name="name">Software Developer</field>
+        </record>
+        <record id="customer_occupaiton_7" model="customer.occupation">
+            <field name="name">Diver</field>
+        </record>
+    </data>
+</odoo>

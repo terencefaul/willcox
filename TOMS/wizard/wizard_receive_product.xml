@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizad_receive_product" model="ir.ui.view">
+        <field name="name">wizard.receive.product</field>
+        <field name="model">wizard.receive.product</field>
+        <field name="arch" type="xml">
+            <form string="Recieve Product Warning">
+                <group>
+                    <p>
+                        You are about to receive goods and the items are set as consumable. This could affect your inventory.
+                    </p>
+                </group>
+                <footer>
+                    <button name="wizard_receive_product_warning" string="Continue" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

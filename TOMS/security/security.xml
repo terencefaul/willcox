@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="humint_category">
+            <field name="name">Humint</field>
+            <field name="sequence">200</field>
+        </record>
+
+        <record id="group_humint_secondary_db" model="res.groups">
+            <field name="name">Secondary Databases</field>
+            <field name="category_id" ref="TOMS.humint_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Access to Secondary Databases</field>
+        </record>
+
+        <record id="group_clinical_other" model="res.groups">
+            <field name="name">other group</field>
+            <field name="category_id" ref="TOMS.humint_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+
+        <record model="ir.module.category" id="clinical_category">
+            <field name="name">Clinical</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_clinical_frontline" model="res.groups">
+            <field name="name">Frontline</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="TOMS.clinical_category"/>
+        </record>
+
+        <record id="group_clinical_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="TOMS.clinical_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_clinical_dispenser" model="res.groups">
+            <field name="name">Dispenser</field>
+            <field name="category_id" ref="TOMS.clinical_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_language_1" model="customer.language">
+            <field name="name">English</field>
+        </record>
+        <record id="customer_language_2" model="customer.language">
+            <field name="name">Afrikaans</field>
+        </record>
+        <record id="customer_language_3" model="customer.language">
+            <field name="name">isiXhosa</field>
+        </record>
+        <record id="customer_language_4" model="customer.language">
+            <field name="name">isiZulu</field>
+        </record>
+        <record id="customer_language_5" model="customer.language">
+            <field name="name">French</field>
+        </record>
+        <record id="customer_language_6" model="customer.language">
+            <field name="name">German</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block " data-string="Mediswitch Integration" string="Mediswitch Integration"
+                     data-key="mediswitch_integration">
+                    <div id="mediswitch_integration">
+                        <h2>Mediswitch Settings</h2>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                         <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                               <field name="for_what" required="1" widget="radio" options="{'horizontal': true}"/>
+                            </div>
+                            <div class="o_setting_left_pane" style="margin-top:-23px;">
+                                <label string="For" for="for_what"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <h3>API URL's</h3>
+                                <span class="text-mute">URL's used to connect to Mediswitch API.</span>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="production_url" string="Production URL"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="production_url" class="oe_inline" widget="url"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="test_url" string="Test URL"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="test_url" class="oe_inline" widget="url"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <h3>Practice Details</h3>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="practice_number" string="Practice Number"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="practice_number" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="practice_name" string="Practice Name"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="practice_name" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 o_setting_box" style="clear:both;">
+                            <div style="margin-left: 30px;padding-left: 10px;border-left: 1px solid #bbbbbb;">
+                                <h3>Test Login Details</h3>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="user_name_test" string="User Name"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="user_name_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="password_test" string="Password"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="password_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="package_test" string="Package"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="package_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="txtype_test" string="Tx Type"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="txtype_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="mode_test" string="Mode Name"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="mode_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="txversion_test" string="Tx Version"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="txversion_test" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-xs-12 col-lg-6 o_setting_box" style="clear:both;">
+                            <div class="o_setting_right_pane">
+                                <h3>Production Login Details</h3>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="user_name_production" string="User Name"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="user_name_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="password_production" string="Password"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="password_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="package_production" string="Package"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="package_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="txtype_production" string="Tx Type"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="txtype_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="mode_production" string="Mode Name"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="mode_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="txversion_production" string="Tx Version"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="txversion_production" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="claim_reversal"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Claims &amp; Reversals" for="claim_reversal"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="benefit_check"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Benefit Check" for="benefit_check"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="membership_status_validation"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Membership Status Validation (MSV)" for="membership_status_validation"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="electronic_remittance_advice"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Electronic Remittance Advice (eRA)" for="electronic_remittance_advice"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mediswitch_configuration" model="ir.actions.act_window">
+        <field name="name">Mediswitch Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'mediswitch_integration'}</field>
+    </record>
+
+    <menuitem id="mediswitch_integration_menu" name="Mediswitch Integration"
+              action="mediswitch_integration.action_mediswitch_configuration"
+              parent="base.menu_administration" sequence="0"/>
+
+</odoo>

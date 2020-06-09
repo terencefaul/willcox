@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+
+    <t t-extend="ImportView.import_button">
+        <t t-jquery="button.o_button_import" t-operation="after">
+            <t t-if="widget.modelName == 'mediswitch.fetch.claim'">
+               <button type="button" class="btn btn-default btn-sm global_fetch" style="height: 31px;font-size: 14px;color: white;background: #00A09D;">
+                    Global Fetch
+                </button>
+            </t>
+        </t>
+    </t>
+
+</template>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="toms_customer_invoice_report" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-set='address']" position="replace"/>
+            <xpath expr="//div[hasclass('page')]//h2" position="before">
+                <br/>
+                <br/>
+                <div class="row" style="margin-left:7px">
+                    <div name="invoice_address" class="col-xs-5">
+                        <span t-esc="o.partner_id.name" style="display:block"/>
+                        <span t-esc="o.partner_id.street" style="display:block"/>
+                        <span t-esc="o.partner_id.street2" style="display:block"/>
+                        <span style="display:block">
+                            <span t-esc="o.partner_id.city"/>
+                            <span t-esc="o.partner_id.zip"/>
+                        </span>
+                        <span style="display:block">
+                            <span t-esc="o.partner_id.state_id.name"/>
+                            <span t-esc="o.partner_id.state_id.code"/>
+                        </span>
+                        <span t-esc="o.partner_id.country_id.name" style="display:block"/>
+                        <span t-esc="o.partner_id.mobile" style="display:block"/>
+                        <span t-esc="o.partner_id.phone" style="display:block"/>
+                        <span t-esc="o.partner_id.individual_internal_ref" style="display:block"/>
+                        <span t-esc="o.partner_id.patient_number" style="display:block"/>
+                    </div>
+                    <div class="col-xs-6" style="margin-left:150px">
+                        <div name="invoice_address" class="col-xs-5" style="margin-left:100px">
+                            <span t-esc="o.partner_id.medical_aid_id.name" style="display:block"/>
+                            <span t-esc="o.partner_id.option_id.name" style="display:block"/>
+                            <span t-esc="o.partner_id.medical_aid_no" style="display:block"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </xpath>
+            <!--<xpath expr="//div[hasclass('page')]//div[1]//div[1]//strong" position="replace">-->
+            <!--<strong>Reference:</strong>-->
+            <!--</xpath>-->
+            <xpath expr="//div[@name='due_date']" position="after">
+                <div class="col-auto" t-if="o.exam_date" name="description">
+                    <strong>Service Date:</strong>
+                    <p t-field="o.exam_date"/>
+                </div>
+                <div class="col-auto" t-if="o.optometrist_id" name="description">
+                    <strong>Optometrist:</strong>
+                    <p t-field="o.optometrist_id.name"/>
+                </div>
+                <div class="col-auto" t-if="o.dispenser_id" name="description">
+                    <strong>Dispenser:</strong>
+                    <p t-field="o.dispenser_id.name"/>
+                </div>
+                <div class="col-auto" t-if="o.frontliner_id" name="description">
+                    <strong>Frontliner:</strong>
+                    <p t-field="o.frontliner_id.name"/>
+                </div>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']" position="replace">
+                <div class="row">
+                    <div class="col-auto">
+                        <strong>Patient Name:</strong>
+                        <span><t t-esc="o.partner_id.name"/>( ID:
+                            <t t-esc="o.partner_id.id_number"/>
+                            DOB:<t t-esc="o.partner_id.birth_date"/>)
+                        </span>
+                    </div>
+                </div>
+                <table t-attf-class="table table-sm" name="invoice_line_table">
+                    <thead>
+                        <tr>
+                            <t t-set="colspan" t-value="6"/>
+                            <th>Medical Codes</th>
+                            <th>ICD Codes</th>
+<!--                            <th>NAPPI Codes</th>-->
+                            <th>Stock Codes</th>
+                            <th>Description</th>
+<!--                            <th class="text-left">-->
+<!--                                <span>Description</span>-->
+<!--                            </th>-->
+                            <th class="d-none text-left">
+                                <span>Source Document</span>
+                            </th>
+                            <th class="text-right">
+                                <span>Qty</span>
+                            </th>
+                            <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Unit Price</span>
+                            </th>
+                            <th t-if="display_discount"
+                                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Disc.(%)</span>
+                                <t t-set="colspan" t-value="colspan+1"/>
+                            </th>
+<!--                            <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">-->
+<!--                                <span>Taxes</span>-->
+<!--                            </th>-->
+                            <th class="text-right">
+                                <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                                <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                               groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
+                               groups="account.group_show_line_subtotals_tax_included"/>
+
+                            <tr t-att-class="'bg-200 font-weight-bold' if line.display_type == 'line_section' else 'font-italic' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type" name="account_invoice_line_accountable">
+                                    <t t-if="o.partner_id.option_id.code == 'SAOA'">
+                                        <td>
+                                            <span t-field="line.product_id.saoa_code_id.code"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="o.partner_id.option_id.code == 'PPN1'">
+                                        <td>
+                                            <span t-field="line.product_id.ppn1_code_id.code"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="not o.partner_id.option_id.code">
+                                        <td></td>
+                                    </t>
+                                    <td>
+                                        <t t-foreach="line.icd_codes_ids" t-as="icd_code">
+                                            <span t-esc="icd_code.code"
+                                                  style="padding-left:5px;padding-right:5px;border:1px solid black;border-radius:10px;margin-right:5px;"/>
+                                        </t>
+                                    </td>
+<!--                                    <td>-->
+<!--                                        <span t-field="line.product_id.nappi_code_id.code"/>-->
+<!--                                    </td>-->
+                                    <td>
+                                        <span t-field="line.product_id.default_code"/>
+                                    </td>
+                                    <td name="account_invoice_line_name">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td class="d-none">
+                                        <span t-field="line.origin"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity" t-field-options='{"widget": "integer"}'/>
+                                        <span t-field="line.uom_id" groups="uom.group_uom"/>
+                                    </td>
+                                    <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-field="line.price_unit"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                    <td t-if="display_discount"
+                                        t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-field="line.discount"/>
+                                    </td>
+                                    <td t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.invoice_line_tax_ids))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.price_subtotal"
+                                              groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <span t-field="line.price_total"
+                                              groups="account.group_show_line_subtotals_tax_included"/>
+                                    </td>
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                    <td t-att-colspan="colspan">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <t t-set="current_section" t-value="line"/>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                </t>
+                                <t t-if="line.display_type == 'line_note'">
+                                    <td t-att-colspan="colspan">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+
+                            <t t-if="current_section and (line_last or o.invoice_line_ids[line_index+1].display_type == 'line_section')">
+                                <tr class="is-subtotal text-right">
+                                    <td t-att-colspan="colspan">
+                                        <strong class="mr16">Subtotal</strong>
+                                        <span
+                                                t-esc="current_subtotal"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                        />
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]//p[3]" position="after">
+                <br/>
+                <br/>
+                <div style="border-top:1px solid black;width:150px;float:left">Signed</div>
+                <div
+                        style="border-top:1px solid black;width:150px;float:left;margin-left:210px">Dated
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

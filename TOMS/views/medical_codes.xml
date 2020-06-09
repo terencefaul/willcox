@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="icd_codes_tree_view" model="ir.ui.view">
+        <field name="name">ICD codes</field>
+        <field name="model">icd.codes</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="icd_codes_category_id"/>
+            </tree>
+        </field>
+        </record>
+
+        <record id="icd_codes_search_view" model="ir.ui.view">
+            <field name="name">ICD Codes</field>
+            <field name="model">icd.codes</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="icd_codes_form_view" model="ir.ui.view">
+            <field name="name">ICD codes</field>
+            <field name="model">icd.codes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1><field name="name" placeholder="Name/Description" required="1"/></h1>
+                        <group col="4">
+                            <field name="code" required="1"/>
+                            <field name="comment"/>
+                            <field name="icd_codes_category_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="nappi_codes_tree_view" model="ir.ui.view">
+            <field name="name">NAPPI codes</field>
+            <field name="model">nappi.codes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="nappi_codes_search_view" model="ir.ui.view">
+            <field name="name">NAPPI Codes</field>
+            <field name="model">nappi.codes</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="nappi_codes_form_view" model="ir.ui.view">
+            <field name="name">NAPPI codes</field>
+            <field name="model">nappi.codes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1><field name="name" placeholder="Name/Description" required="1"/></h1>
+                        <group col="4">
+                            <field name="code" required="1"/>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="saoa_codes_tree_view" model="ir.ui.view">
+            <field name="name">SAOA codes</field>
+            <field name="model">saoa.codes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="saoa_codes_search_view" model="ir.ui.view">
+            <field name="name">SAOA Codes</field>
+            <field name="model">saoa.codes</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="saoa_codes_form_view" model="ir.ui.view">
+            <field name="name">SAOA codes</field>
+            <field name="model">saoa.codes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1><field name="name" placeholder="Name/Description" required="1"/></h1>
+                        <group col="4">
+                            <field name="code" required="1"/>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="old_codes_tree_view" model="ir.ui.view">
+            <field name="name">Old Codes</field>
+            <field name="model">old.codes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="old_codes_search_view" model="ir.ui.view">
+            <field name="name">Old Codes</field>
+            <field name="model">old.codes</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="old_codes_form_view" model="ir.ui.view">
+            <field name="name">Old Codes</field>
+            <field name="model">old.codes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1><field name="name" placeholder="Name/Description" required="1"/></h1>
+                        <group col="4">
+                            <field name="code" required="1"/>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ppn1_codes_tree_view" model="ir.ui.view">
+            <field name="name">PPN1 codes</field>
+            <field name="model">ppn1.codes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ppn1_codes_search_view" model="ir.ui.view">
+            <field name="name">PPN1 Codes</field>
+            <field name="model">ppn1.codes</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="ppn1_codes_form_view" model="ir.ui.view">
+            <field name="name">PPN1 codes</field>
+            <field name="model">ppn1.codes</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1><field name="name" placeholder="Name/Description" required="1"/></h1>
+                    <group col="4">
+                        <field name="code" required="1"/>
+                        <field name="comment"/>
+                  </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_icd_codes_view" model="ir.actions.act_window">
+            <field name="name">ICD Codes</field>
+            <field name="res_model">icd.codes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_nappi_codes_view" model="ir.actions.act_window">
+            <field name="name">NAPPI Codes</field>
+            <field name="res_model">nappi.codes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_saoa_codes_view" model="ir.actions.act_window">
+            <field name="name">SAOA Codes</field>
+            <field name="res_model">saoa.codes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <record id="action_old_codes_view" model="ir.actions.act_window">
+            <field name="name">Old Codes</field>
+            <field name="res_model">old.codes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_ppn1_codes_view" model="ir.actions.act_window">
+            <field name="name">PPN1 Codes</field>
+            <field name="res_model">ppn1.codes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_medical_codes" sequence="3" name="Medical Codes"
+            parent="main_menu_medical_aid"/>
+
+        <menuitem id="menu_icd_codes" sequence="1" name="ICD Codes"
+            parent="menu_medical_codes" action="action_icd_codes_view" />
+
+		<menuitem id="menu_nappi_codes" sequence="2" name="NAPPI Codes"
+            parent="menu_medical_codes" action="action_nappi_codes_view" />
+
+        <menuitem id="menu_old_codes" sequence="5" name="Old Codes"
+            parent="menu_medical_codes" action="action_old_codes_view" />
+
+        <menuitem id="menu_saoa_codes" sequence="3" name="SAOA Codes"
+            parent="menu_medical_codes" action="action_saoa_codes_view" />
+
+        <menuitem id="menu_ppn1_codes" sequence="4" name="PPN Codes"
+            parent="menu_medical_codes" action="action_ppn1_codes_view"/>
+
+	</data>
+</odoo>

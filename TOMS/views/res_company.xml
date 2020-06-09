@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="toms_inherit_res_company_form" model="ir.ui.view">
+            <field name="name">res.company</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet//notebook//page[1]//div[hasclass('o_address_format')]" position="after">
+                    <field name="anglo_saxon_accounting" groups="base.group_no_one"/>
+                </xpath>
+            </field>
+        </record>
+
+        </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cron_recall_customer" model="ir.cron">
+            <field name="name">Sheduler Recall customer</field>
+            <field name="model_id" ref="model_res_partner" />
+            <field name="state">code</field>
+            <field name="code">model.scheduler_recall_customer()</field>
+            <field name="interval_number">1</field>
+            <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d  07:00:00')" />
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>
+
+
+        <record id="cron_send_sms_reminder" model="ir.cron">
+            <field name="name">Send Reminder SMS</field>
+            <field name="model_id" ref="calendar.model_calendar_event" />
+            <field name="state">code</field>
+            <field name="code">model.scheduler_send_sms_reminder()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>
+    </data>
+</odoo>

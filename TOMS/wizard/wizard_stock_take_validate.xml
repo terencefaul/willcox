@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_stock_take_validate" model="ir.ui.view">
+        <field name="name">wizard.stock.take.validate</field>
+        <field name="model">wizard.stock.take.validate</field>
+        <field name="arch" type="xml">
+            <form string="Wizard stock Take">
+                <group>
+                    <p>
+                        This will Validate all the Inventory Adjustments associated with this stock Take. Click Validate to Continue.
+                    </p>
+                </group>
+                <footer>
+                    <button name="validate" string="Validate" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_take_validate" model="ir.actions.act_window">
+        <field name="name">Stock Take Validate Wizard</field>
+        <field name="res_model">wizard.stock.take.validate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

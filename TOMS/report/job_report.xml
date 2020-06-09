@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report id="custom_job_exam_report"
+                string="Job"
+                model="project.task"
+                report_type="qweb-pdf"
+                name="TOMS.report_print_job"
+                file="TOMS.report_print_job"
+                print_report_name="'Job # - %s' % (object.job_number)"
+        />
+
+        <template id="report_print_job">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="row" id="PartnerAddress">
+                                <div class="col-auto">
+                                    <address t-field="o.partner_id"
+                                             t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;, &quot;email&quot;, &quot;phone&quot;,&quot;address&quot;],&quot;no_marker&quot;:&quot;True&quot;}"/>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="JobNumber">
+                                <div class="col-auto">
+                                    <h2>JOB #:
+                                        <t t-esc="o.job_number"/>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="JobInfo">
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Job Date:</strong>
+                                    <br/>
+                                    <span t-esc="o.create_date" t-options="{'widget':'date'}"/>
+                                </div>
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Deadline Date:</strong>
+                                    <br/>
+                                    <span t-esc="o.date_deadline" t-options="{'widget':'date'}"/>
+                                </div>
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Service Date:</strong>
+                                    <br/>
+                                    <span t-esc="o.contact_clinical_final_rx_id.final_rx_dis_id.exam_date or o.clinical_final_rx_id.final_rx_dis_id.exam_date"
+                                          t-options="{'widget':'date'}"/>
+                                </div>
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Optometrist:</strong>
+                                    <br/>
+                                    <span t-esc="o.contact_clinical_final_rx_id.final_rx_dis_id.optometrist_id.name or o.clinical_final_rx_id.final_rx_dis_id.optometrist_id.name"/>
+                                </div>
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Dispenser:</strong>
+                                    <br/>
+                                    <span t-esc="o.contact_clinical_final_rx_id.final_rx_dis_id.dispenser_id.name or o.clinical_final_rx_id.final_rx_dis_id.dispenser_id.name"/>
+                                </div>
+
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Assigned To:</strong>
+                                    <br/>
+                                    <span t-esc="o.user_id.name"/>
+                                </div>
+                                <div class="col-auto" style="margin-right:10px">
+                                    <strong>Job Type:</strong>
+                                    <br/>
+                                    <span t-field="o.job_type"/>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-3">
+                                <div class="col-auto">
+                                    <strong>Patient Name:</strong>
+                                    <span><t t-esc="o.partner_id.name"/>( ID:
+                                        <t t-esc="o.partner_id.id_number"/>
+                                        DOB:<t t-esc="o.partner_id.birth_date"/>)
+                                    </span>
+                                </div>
+                            </div>
+                            <t t-if="o.contact_clinical_final_rx_id">
+                                <div class="row">
+                                    <h3 class="col-auto">Fitting Details</h3>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Sph</th>
+                                                <th>Cyl</th>
+                                                <th>Axis</th>
+                                                <th>Add</th>
+                                                <th>Va</th>
+                                                <th>Sph</th>
+                                                <th>Cyl</th>
+                                                <th>Axis</th>
+                                                <th>Add</th>
+                                                <th>Va</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="o.contact_final_rx_name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_od_syh"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_od_cyl"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_od_axis"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-field="o.contact_od_add"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_od_va"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_os_syh"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_os_cyl"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_os_axis"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-field="o.contact_os_add"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_os_va"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered col-auto">
+                                        <thead>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Diameter</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_diameter_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_diameter_l"/>
+                                                </td>
+                                                <td style="width:110px">
+                                                    <b>Base Curve</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_base_curve_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_base_curve_l"/>
+                                                </td>
+                                                <td style="width:110px">
+                                                    <b>Over Refraction</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_over_fraction_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_over_fraction_l"/>
+                                                </td>
+                                                <td style="width:110px">
+                                                    <b>Axis Orientation</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_axis_orientation_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_axis_orientation_l"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Movement</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_movement_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_movement_l"/>
+                                                </td>
+                                                <td style="width:110px">
+                                                    <b>Sag</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_sag_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_sag_l"/>
+                                                </td>
+                                                <td style="width:110px">
+                                                    <b>Landing Zone</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_landing_zone_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.contact_landing_zone_l"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered col-auto">
+                                        <thead>
+                                            <th>Note R</th>
+                                            <th>Note L</th>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                <span t-field="o.contact_notes_r"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="o.contact_notes_l"/>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <h3>Products</h3>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped col-auto">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Description</th>
+                                                <th>ICD10</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Price</th>
+                                                <th>Taxes</th>
+                                                <th>Subtotal</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.contact_clinical_final_rx_id.clinical_final_rx_ids"
+                                               t-as="product">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="product.product_id.display_name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-foreach="product.icd_codes_ids" t-as="icd_code">
+                                                            <span t-esc="icd_code.code"
+                                                                  style="padding-left:5px;padding-right:5px;border:1px solid black;border-radius:10px;margin-right:5px;"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.product_uom_qty"/>
+                                                    </td>
+
+                                                    <td>
+                                                        <span t-esc="product.price_unit"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-foreach="product.tax_id" t-as="tax">
+                                                            <span t-esc="tax.name"
+                                                                  style="padding-left:5px;padding-right:5px;border:1px solid black;border-radius:10px;margin-right:5px;"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.price_subtotal"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.price_total"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                            <t t-if="o.clinical_final_rx_id">
+                                <div class="row">
+                                    <h3>Fitting Details</h3>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped col-auto">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Sph</th>
+                                                <th>Cyl</th>
+                                                <th>Axis</th>
+                                                <th>Prism</th>
+                                                <th>Add</th>
+                                                <th>Va</th>
+                                                <th>Sph</th>
+                                                <th>Cyl</th>
+                                                <th>Axis</th>
+                                                <th>Prism</th>
+                                                <th>Add</th>
+                                                <th>Va</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="o.final_rx_name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_syh"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_cyl"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_axis"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_prism"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_add"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.od_va"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_syh"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_cyl"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_axis"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_prism"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_add"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.os_va"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered col-auto">
+                                        <thead>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                            <th/>
+                                            <th style="text-align:center">R</th>
+                                            <th style="text-align:center">L</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:100px">
+                                                    <b>Pupil Heights</b>
+                                                </td>
+                                                <td style="width:150px">
+                                                    <span t-field="o.pupil_heights_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.pupil_heights_l"/>
+                                                </td>
+                                                <td style="width:100px">
+                                                    <b>Mono</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.mono_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.mono_l"/>
+                                                </td>
+                                                <td style="width:100px">
+                                                    <b>Seg Heights</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.seg_heights_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.seg_heights_l"/>
+                                                </td>
+                                                <td style="width:100px">
+                                                    <b>PD</b>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.pd_r"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.pd_l"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered col-auto">
+                                        <thead>
+                                            <tr>
+                                                <th>A</th>
+                                                <th>B</th>
+                                                <th>D</th>
+                                                <th>E</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="o.fitting_a"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.fitting_b"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.fitting_d"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.fitting_e"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="col-auto">
+                                        <tr>
+                                            <td style="width:130px">
+                                                <b>Shape</b>
+                                            </td>
+                                            <td style="width:150px">
+                                                <span t-field="o.shape"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div>
+                                        <div>
+                                            <b>Special Instructions</b>
+                                        </div>
+                                        <div>
+                                            <span t-field="o.instruction"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="col-auto">Products</h3>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped col-auto">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Description</th>
+                                                <th>ICD10</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Price</th>
+                                                <th>Taxes</th>
+                                                <th>Subtotal</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.clinical_final_rx_id.clinical_final_rx_ids" t-as="product">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="product.product_id.display_name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-foreach="product.icd_codes_ids" t-as="icd_code">
+                                                            <span t-esc="icd_code.code"
+                                                                  style="padding-left:5px;padding-right:5px;border:1px solid black;border-radius:10px;margin-right:5px;"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.product_uom_qty"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.price_unit"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-foreach="product.tax_id" t-as="tax">
+                                                            <span t-esc="tax.name"
+                                                                  style="padding-left:5px;padding-right:5px;border:1px solid black;border-radius:10px;margin-right:5px;"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.price_subtotal"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="product.price_total"
+                                                              t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_fitting_details_form" model="ir.ui.view">
+            <field name="name">Ftting Details</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <span style="font-size:20px">Fitting Details</span>
+                        <div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Sph</th>
+                                        <th>Cyl</th>
+                                        <th>Axis</th>
+                                        <th>Prism</th>
+                                        <th>Add</th>
+                                        <th>Va</th>
+                                        <th>Sph</th>
+                                        <th>Cyl</th>
+                                        <th>Axis</th>
+                                        <th>Prism</th>
+                                        <th>Add</th>
+                                        <th>Va</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <field name="final_rx_name" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_syh" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_cyl" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_axis" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_prism" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_add" class="number_value" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="od_va" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_syh" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_cyl" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_axis" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_prism" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_add"  class="number_value" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="os_va" readonly="1"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>R</strong>
+                                    </td>
+                                    <td>
+                                        <strong>L</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Pupil Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_r" style="margin-bottom:0px"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_l" style="margin-bottom:0px"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Mono</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_r" style="margin-bottom:0px"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_l" style="margin-bottom:0px"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Seg Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_r" style="margin-bottom:0px"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_l" style="margin-bottom:0px"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>PD</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_r" style="margin-bottom:0px"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_l" style="margin-bottom:0px"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>D</th>
+                                        <th>E</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:100px">
+                                            <field name="fitting_a" style="margin-bottom:0px"></field>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_b" style="margin-bottom:0px"></field>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_d" style="margin-bottom:0px"></field>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_e" style="margin-bottom:0px"></field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="width:130px">
+                                        <b>Shape</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="shape" style="margin-bottom:0px"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <div>
+                                <b>Special Instructions</b>
+                            </div>
+                            <div>
+                                <field name="instruction"/>
+                            </div>
+                        </div>
+                        <field name="clinical_final_rx_id" invisible="1"/>
+                        <group>
+                            <field name="project_task_ids" nolabel="1">
+                                <tree editable="bottom" readonly="1" create="0" delete="0">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="icd_codes_ids" widget="many2many_tags" readonly="1"/>
+                                    <field name="product_uom_qty" readonly="1"/>
+                                    <field name="price_unit" readonly="1"/>
+                                    <field name="tax_id" readonly="1" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="discount" readonly="1" groups="sale.group_discount_per_so_line"/>
+                                    <field name="price_subtotal" readonly="1" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="price_total" readonly="1" widget="monetary"/>
+                                    <field name="project_task_id" invisible="1"/>
+                                    <field name="currency_id" invisible="0"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="project_contact_fitting_details_form" model="ir.ui.view">
+            <field name="name">Ftting Details</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <span style="font-size:20px">Fitting Details</span>
+                        <field name="contact_clinical_final_rx_id" invisible="1"/>
+                        <div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Sph</th>
+                                        <th>Cyl</th>
+                                        <th>Axis</th>
+                                        <th>Add</th>
+                                        <th>Va</th>
+                                        <th>Sph</th>
+                                        <th>Cyl</th>
+                                        <th>Axis</th>
+                                        <th>Add</th>
+                                        <th>Va</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <field name="contact_final_rx_name" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_od_syh" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_od_cyl" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_od_axis" readonly="1"/>
+                                        </td>
+
+                                        <td>
+                                            <field name="contact_od_add" class="number_value" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_od_va" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_os_syh" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_os_cyl" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_os_axis" readonly="1"/>
+                                        </td>
+
+                                        <td>
+                                            <field name="contact_os_add"  class="number_value" readonly="1"/>
+                                        </td>
+                                        <td>
+                                            <field name="contact_os_va" readonly="1"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table>
+                                <thead>
+                                    <th></th>
+                                    <th style="text-align:center">R</th>
+                                    <th></th>
+                                    <th style="text-align:center">L</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Diameter</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_diameter_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_diameter_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Base Curve</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_base_curve_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_base_curve_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Over Refraction</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_over_fraction_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_over_fraction_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Axis Orientation</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_axis_orientation_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_axis_orientation_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Movement</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_movement_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_movement_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Sag</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_sag_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_sag_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Landing Zone</b>
+                                        </td>
+                                        <td>
+                                            <field name="contact_landing_zone_r" readonly="1"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="contact_landing_zone_l" readonly="1"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>Notes</strong>
+                                    <br/>
+                                    <field name="contact_notes_r" readonly="1"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Notes</strong>
+                                    <br/>
+                                    <field name="contact_notes_l" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <group>
+                            <field name="project_task_ids" nolabel="1">
+                                <tree editable="bottom" readonly="1" create="0" delete="0">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="icd_codes_ids" widget="many2many_tags" readonly="1"/>
+                                    <field name="product_uom_qty" readonly="1"/>
+                                    <field name="price_unit" readonly="1"/>
+                                    <field name="tax_id" readonly="1" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="discount" readonly="1" groups="sale.group_discount_per_so_line"/>
+                                    <field name="price_subtotal" readonly="1" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="price_total" readonly="1" widget="monetary"/>
+                                    <field name="project_task_id" invisible="1"/>
+                                    <field name="currency_id" invisible="0"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="medical_aid_confrimations_form_view" model="ir.ui.view">
+            <field name="name">humint.medical_aid_confrimations.form</field>
+            <field name="model">humint.medical.aid.confrimations</field>
+            <field name="arch" type="xml">
+                <form string="Benefit Confrimations">
+                    <sheet>
+<!--                        <div class="oe_title">
+                            <label for="example_title"/>
+                            <h1>
+                                <field name="date" placeholder="Title"/>
+                            </h1>
+                        </div>-->
+                        <group string="Medical Aid Confrimations">
+                            <group string="Patient Details">
+                                <field name="patient" domain="[('customer','=',True)]"/>
+                                <field name="medical_aid"/>
+                                <field name="name"/>
+                                <field name="account_no"/>
+                                <field name="patient_no"/>
+                                <field name="date"/>
+                                <field name="period"/>
+                            </group>
+                            <group string="Fees">
+                                <field name="eye_exam" string="Eye Exam"/>
+                                <field name="tomometry" string="Fields and Tomometry"/>
+                            </group>
+                            <group string="Lens Limits">
+                                <field name="lens_limit" string="Lens Limit"/>
+                                <field name="sv_limit" string="SV Limit"/>
+                                <field name="bf_limit" string="BF Limit"/>
+                                <field name="mf_limit" string="MF Limit"/>
+                            </group>
+                            <group string="Frame Limits">
+                                <field name="overall_spectacle_limit" string="Overall Limit"/>
+                                <field name="frame_limit" string="Frame Limit"/>
+                            </group>
+                            <group string="Lens Limit Includes">
+                                <field name="tints" widget="boolean_toggle"/>
+                                <field name="arc" widget="boolean_toggle"/>
+                                <field name="coating" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Contact Lens Limits">
+                                <field name="contact_lens_limit" string="Contact Lens Limit"/>
+                                <field name="contact_lens_consult" string="Contact Lens Consultation"/>
+                            </group>
+
+                        </group>
+                        <group string="Total Patient Benifits">
+                            <field name="overall_limit" string=" Overall Limits" width="200" style="color:red ! important;" />
+                        </group>
+                        <notebook>
+                            <page name="Contact Details" string="Contact Details">
+                                <group>
+                                        <group string="Contact Details">
+                                            <field name="spoke_to"/>
+                                            <field name="staff_mem" string="Staff Member"/>
+                                        </group>
+                                        <group string="Comments">
+                                            <field name="comments" placholder="Comments relating to the confrimation"/>
+
+                                        </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="medical_aid_confrimations_tree_view" model="ir.ui.view">
+            <field name="name">humint.medical_aid_confrimations.tree</field>
+            <field name="model">humint.medical.aid.confrimations</field>
+            <field name="arch" type="xml">
+                <tree string="ModelTitle">
+                    <field name="name"/>
+                    <field name="patient"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_aid_confrimations_search_view" model="ir.ui.view">
+            <field name="name">humint.medical_aid_confrimations.search</field>
+            <field name="model">humint.medical.aid.confrimations</field>
+            <field name="arch" type="xml">
+                <search string="ModelTitle">
+                    <group expand="1" string="Group By">
+ <!--                       <filter string="name" name="name" domain="[]"
+                                context="{'group_by':'example_field'}"/> -->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="medical_aid_confrimations_act_window" model="ir.actions.act_window">
+            <field name="name">Medical Aid Confrimations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">humint.medical.aid.confrimations</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new ModelTitle.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Benefit Confrimations" id="medical_aid_confrimations_menu" parent="clinical_customer" action="medical_aid_confrimations_act_window"/>
+
+    </data>
+</odoo>

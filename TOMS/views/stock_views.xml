@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="stock_inventory_view_form_inherit_toml" model="ir.ui.view">
+        <field name="name">stock.inventory.form.inherit.toml</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_id']" position="before">
+                <field name="stock_take_id" attrs="{}" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_tree_form_view" model="ir.ui.view">
+        <field name="name">stock.take.form</field>
+        <field name="model">stock.take</field>
+        <field name="arch" type="xml">
+            <form name="stock_take_form" string="Stock Take Form">
+                <header>
+                    <button name="start_stock_take" states="draft"
+                            string="Start Stock Take" type="object" class="btn-primary"/>
+                    <button name="validate_stock_take"
+                            attrs="{'invisible':[('state','in',['draft','validated','cancelled'])]}"
+                            string="Validate" type="object" class="btn-primary"/>
+                    <button name="cancel_stock_take" string="Cancel" states="in_progress" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,validated,cancelled"/>
+                </header>
+                <sheet string="Stock Take Form Sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group name="studio_group_801a3b">
+                        <group name="studio_group_801a3b_left">
+                            <field name="note" string="Note" invisible="1"/>
+
+                        </group>
+                        <group name="studio_group_801a3b_right">
+                            <field name="stock_inventory_ids" invisible="1"/>
+
+                        </group>
+                    </group>
+                    <group colspan="10">
+                        <field name="stock_inventory_ids"/>
+                        <field name="note" string="Note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="humint_view_inventory_tree" model="ir.ui.view">
+        <field name="name">stock.inventory.tree.view</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="location_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock_tree_tree_view" model="ir.ui.view">
+        <field name="name">stock.take.tree</field>
+        <field name="model">stock.take</field>
+        <field name="arch" type="xml">
+            <tree name="stock_take_tree" string="Stock Take tree">
+                <field name="name"/>
+                <field name="note"/>
+                <field name="stock_inventory_ids"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_stock_take" model="ir.actions.act_window">
+        <field name="name">Stock Take</field>
+        <field name="res_model">stock.take</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_action_stock_take" sequence="4"
+        name="Stock Take"
+        action="action_stock_take"
+        parent="stock.menu_stock_warehouse_mgmt"/>
+
+    <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+    <menuitem id="humint_stock_root" name="Stock Take" web_icon="TOMS,static/description/stocktake.jpg" sequence="3"/>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="humint_stock_root_categ" name="Stock Take" parent="humint_stock_root" sequence="2"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="humint_stock_root_action" name="" parent="humint_stock_root_categ" action="action_stock_take" sequence="3"/>
+</odoo>

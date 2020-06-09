@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="domain">[('customer', '=', True)]</field>
+        </record>
+
+        <!--Main Clinical Menus-->
+        <menuitem id="main_menu_clinical_app" web_icon="TOMS,static/description/clinical.png" name="Clinical" sequence="1" />
+           <!--Main Appointment Menus-->
+            <menuitem id="clinical_calendar_menu" name="Appointments" parent="main_menu_clinical_app" sequence="1" action="aspl_action_calendar_event"/>
+
+        <!--Main Patient Menus-->
+            <menuitem id="clinical_customer" name="Patient" parent="main_menu_clinical_app" sequence="2"/>
+                <menuitem id="clinical_customers" name="Patient" parent="clinical_customer" sequence="1" action="base.action_partner_form"/>
+
+        <!--Main Medical Aid Menus-->
+        <menuitem id="clinical_medical_aid_menu" name="Medical Aid" parent="main_menu_clinical_app" sequence="4"/>
+            <menuitem id="clinical_medical_aids_sub_menu" name="Medical Aid" parent="clinical_medical_aid_menu" sequence="4" action="action_medical_aid_1"/>
+
+
+
+            <!-- Exam Menus-->
+        <menuitem id="clinical_menu_exam" name="Exam" parent="main_menu_clinical_app" sequence="4" action="base.action_partner_form"/>
+            <menuitem id="clinical_menu_currunt_exam" name="Current Exams" parent="clinical_menu_exam" sequence="1" action="action_clinical_examination"/>
+            <menuitem id="clinical_menu_previous_exam" name="Previous Exams" parent="clinical_menu_exam" sequence="2" action="action_clinical_examination_deactive"/>
+            <menuitem id="clinical_menu_invoice" name="Invoices" parent="clinical_menu_exam" sequence="3" action="account.action_invoice_tree1"/>
+
+        <!--Main Job Menus-->
+            <menuitem id="clinical_menu_jobs" name="Jobs" parent="main_menu_clinical_app" sequence="4" action="project.action_view_task"/>
+
+
+
+        <!-- Add HWAY settings to clinical module settings menu -->
+        <menuitem id="clinical_menu_configuration" name="Configuration" parent="main_menu_clinical_app" sequence="20"/>
+            <menuitem id="hway_subheading" name="HWAY Settings" parent="clinical_menu_configuration" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_sport" name="HWAY Sport" parent="hway_subheading" action="hway_sport_action" sequence="2" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_hobby" name="HWAY hobby" parent="hway_subheading" action="hway_hobby_action" sequence="3" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_doyou" name="HWAY Do You" parent="hway_subheading" action="hway_doyou_action" sequence="4" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_doesyour" name="HWAY Does Your" parent="hway_subheading" action="hway_doesyour_action" sequence="5" groups="group_humint_secondary_db"/>
+
+        <!-- Add Pateint settings to clinical module settings menu -->
+
+            <menuitem id="Secondary_databases_subheading" name="Secondary Databases" parent="clinical_menu_configuration" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_occupation" name="Occupations" parent="Secondary_databases_subheading" action="customer_occupation_action" sequence="2" groups="group_humint_secondary_db"/>
+                <menuitem id="clinical_menu_settings_language" name="Patient Languages" parent="Secondary_databases_subheading" action="customer_language_action" sequence="3" groups="group_humint_secondary_db"/>
+
+
+
+
+
+
+
+
+
+        <record id="project.action_view_task" model="ir.actions.act_window">
+            <field name="name">Jobs</field>
+            <field name="domain" eval="[('stage_id','in', [ref('TOMS.stage_queued'),
+                                                           ref('stage_inprogress'),
+                                                           ref('stage_complete'),
+                                                           ref('stage_customer_collection')])]"/>
+        </record>
+
+        <menuitem id="project.menu_action_view_task" name="Jobs" parent="project.menu_project_management" sequence="5"/>
+
+        <menuitem id="sales_customer_invoice" name="Customer Invoices" parent="sale.menu_sale_invoicing" action="account.action_invoice_tree1" sequence="1"/>
+
+        <!-- Move Calendar menu -->
+        <menuitem id="calendar.mail_menu_calendar" name="Calender" sequence="10"/>
+
+
+
+        <!-- Add HWAY settings to contacts module settings menu -->
+            <menuitem id="hway_contacts_subheading" name="HWAY Settings" parent="contacts.res_partner_menu_config" groups="group_humint_secondary_db"/>
+            <menuitem id="contacts_settings_sport" name="HWAY Sport" parent="hway_contacts_subheading" action="hway_sport_action" sequence="2" groups="group_humint_secondary_db"/>
+            <menuitem id="contacts_menu_settings_hobby" name="HWAY hobby" parent="hway_contacts_subheading" action="hway_hobby_action" sequence="3" groups="group_humint_secondary_db"/>
+            <menuitem id="contacts_menu_settings_doyou" name="HWAY Do You" parent="hway_contacts_subheading" action="hway_doyou_action" sequence="4" groups="group_humint_secondary_db"/>
+            <menuitem id="contacts_menu_settings_doesyour" name="HWAY Does Your" parent="hway_contacts_subheading" action="hway_doesyour_action" sequence="5" groups="group_humint_secondary_db"/>
+
+	</data>
+</odoo>

@@ -1,0 +1,301 @@
+<odoo>
+
+    <record id="inherit_res_users_form_mediswitch_test1" model="ir.ui.view">
+        <field name="name">Users</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="login" position="after">
+                <group>
+                    <field name="op_number"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+     <record id="view_partner_form_inherit_for_mediswitch" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.for.mediswitch</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet" position="before">
+                 <header>
+                    <button name="submit_msv" string="Submit Msv" class="oe_highlight" type="object"/>
+                    <button name="id_msv" string="ID Msv" class="oe_highlight" type="object"/>
+                    <button name="surname_dob_msv" string="SURNAME DOB MSV" class="oe_highlight" type="object"/>
+                </header>
+            </xpath>
+            <field name="recall_exam_date" position="after">
+                <field name="payload_description"></field>
+            </field>
+        </field>
+    </record>
+
+    <record id="aspl_inherit_res_partner_form_view" model="ir.ui.view">
+        <field name="name">Res Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button type="object" class="oe_stat_button" icon="fa-user" name="action_view_partner_msv">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                        </span>
+                        <span class="o_stat_text">MSV History</span>
+                    </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <act_window id="action_mark_msv_later"
+            name="Mark to Msv Later"
+            src_model="res.partner"
+            res_model="mark.msv"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"/>
+
+    <act_window id="action_remove_mark_msv_later"
+            name="Remove MSV Later"
+            src_model="res.partner"
+            res_model="remove.mark.msv"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"/>
+
+    <act_window id="action_id_msv"
+            name="Id MSV"
+            src_model="res.partner"
+            res_model="id.msv"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"/>
+
+    <act_window id="action_surname_dob_msv"
+            name="Surname Dob MSV"
+            src_model="res.partner"
+            res_model="surname.dob.msv"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"/>
+
+    <record id="form_view_for_mark_msv" model="ir.ui.view">
+        <field name="name">MSV's</field>
+        <field name="model">mark.msv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" string="Are you sure you want to Mark Customer to Msv later"></label>
+                    <field name="name"></field>
+                </sheet>
+                <footer>
+                    <button type="object" string="Ok" name="mark_to_msv" class="btn-primary"></button>
+                    <button string="Cancel" special="cancel" class="btn-secondary"></button>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_view_for_bulk_msv" model="ir.ui.view">
+        <field name="name">MSV's</field>
+        <field name="model">bulk.msv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" string="Are you sure you want to submit the 'MSV' request to mediswitch"></label>
+                    <field name="name"></field>
+                    <footer>
+                        <button type="object" string="Ok" name="bulk_msv" class="btn-primary"></button>
+                        <button string="Cancel" special="cancel" class="btn-secondary"></button>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_view_for_id_msv" model="ir.ui.view">
+        <field name="name">Id MSV's</field>
+        <field name="model">id.msv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" string="Are you sure you want to submit the 'ID MSV' request to mediswitch"></label>
+                    <field name="name" readonly="1"></field>
+                    <footer>
+                        <button type="object" string="Ok" name="id_msv" class="btn-primary"></button>
+                        <button string="Cancel" special="cancel" class="btn-secondary"></button>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_view_for_surname_dob_msv" model="ir.ui.view">
+        <field name="name">Surname Dob MSV's</field>
+        <field name="model">surname.dob.msv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" string="Are you sure you want to submit the 'SURNAME DOB MSV' request to mediswitch"></label>
+                    <field name="name" readonly="1"></field>
+                    <footer>
+                        <button type="object" string="Ok" name="surname_dob_msv" class="btn-primary"></button>
+                        <button string="Cancel" special="cancel" class="btn-secondary"></button>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_view_for_remove_mark_msv" model="ir.ui.view">
+        <field name="name">MSV's</field>
+        <field name="model">remove.mark.msv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" string="Are you sure you want to Remove Customer from Msv later"></label>
+                    <field name="name"></field>
+                </sheet>
+                <footer>
+                    <button type="object" string="Ok" name="remove_msv" class="btn-primary"></button>
+                    <button string="Cancel" special="cancel" class="btn-secondary"></button>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_view_for_msv_response" model="ir.ui.view">
+        <field name="name">MSV Response</field>
+        <field name="model">msv.response</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <h3><field name="msv_type" string="Msv Type"></field></h3>
+                    <group>
+                        <group string="Membership Details">
+                            <field name="partner_id"></field>
+                            <field name="membership_number"></field>
+                            <field name="name"></field>
+                            <field name="plan_name"></field>
+                            <field name="option_name"></field>
+                        </group>
+                        <group string="Response Details">
+                            <field name="validation_code"></field>
+                            <field name="disclaimer"></field>
+                            <field name="status_code_description"></field>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Members">
+                            <field name="msv_members_ids">
+                                <tree>
+                                    <field name="name"></field>
+                                    <field name="surname"></field>
+                                    <field name="dependent_code"></field>
+                                    <field name="initials"></field>
+                                    <field name="dob"></field>
+                                    <field name="id_number"></field>
+                                    <field name="gender"></field>
+                                    <field name="effective_date"></field>
+                                    <field name="termination_date"></field>
+                                    <field name="status_code_description"></field>
+                                    <field name="operations" invisible="1"></field>
+                                    <field name="search_id" invisible="1"></field>
+                                    <button type="object" name="search_record" class="fa fa-search btn-primary" help="Search Record" attrs="{'invisible':[('operations','!=','search')]}"></button>
+                                    <button type="object" name="create_record" class="fa fa-plus btn-primary" help="Create Record" attrs="{'invisible':[('operations','!=','create')]}"></button>
+                                    <button type="object" name="update_record" class="fa fa-pencil-square-o btn-primary" help="Update Record" attrs="{'invisible':[('operations','!=','update')]}"></button>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Request Payload" groups="base.group_no_one">
+                            <field name="request_payload"></field>
+                        </page>
+                        <page string="Response Payload" groups="base.group_no_one">
+                            <field name="response_payload"></field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tree_view_for_msv_response1" model="ir.ui.view">
+        <field name="name">MSV Response</field>
+        <field name="model">msv.response</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="msv_type"/>
+                <field name="create_date"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="form_view_for_msv_response1" model="ir.ui.view">
+        <field name="name">MSV Response</field>
+        <field name="model">msv.response</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h3><field name="msv_type" string="Msv Type" readonly="1"></field></h3>
+                    <group>
+                        <group string="Membership Details">
+                            <field name="membership_number" readonly="1"></field>
+                            <field name="name" readonly="1"></field>
+                            <field name="plan_name" readonly="1"></field>
+                            <field name="option_name" readonly="1"></field>
+                        </group>
+                        <group string="Response Details">
+                            <field name="validation_code" readonly="1"></field>
+                            <field name="disclaimer" readonly="1"></field>
+                            <field name="status_code_description" readonly="1"></field>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Members">
+                            <field name="msv_members_ids" readonly="1">
+                                <tree>
+                                    <field name="name"></field>
+                                    <field name="surname"></field>
+                                    <field name="dependent_code"></field>
+                                    <field name="initials"></field>
+                                    <field name="dob"></field>
+                                    <field name="id_number"></field>
+                                    <field name="gender"></field>
+                                    <field name="effective_date"></field>
+                                    <field name="termination_date"></field>
+                                    <field name="status_code_description"></field>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Request Payload" groups="base.group_no_one">
+                            <field name="request_payload"></field>
+                        </page>
+                        <page string="Response Payload" groups="base.group_no_one">
+                            <field name="response_payload"></field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button special="cancel" string="Close" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tree_view_for_msv_response" model="ir.ui.view">
+        <field name="name">MSV Response Wizard</field>
+        <field name="model">msv.response</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"></field>
+                <field name="name"></field>
+                <field name="partner_id"></field>
+            </tree>
+        </field>
+    </record>
+
+    <template id="assets_backend" name="global_fetch assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/mediswitch_integration/static/src/js/global_fetch.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

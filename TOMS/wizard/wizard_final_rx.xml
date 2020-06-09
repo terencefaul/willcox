@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="final_rx_fitting_details_form" model="ir.ui.view">
+            <field name="name">Ftting Details</field>
+            <field name="model">wizard.final.rx</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <span style="font-size: 20px;color:#666666">Final RX</span>
+                        <field name="invoice_id" invisible="1"/>
+                        <field name="repurchase" invisible="1"/>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Sph</th>
+                                    <th>Cyl</th>
+                                    <th>Axis</th>
+                                    <th>Prism</th>
+                                    <th>Add</th>
+                                    <th>Va</th>
+                                    <th>Sph</th>
+                                    <th>Cyl</th>
+                                    <th>Axis</th>
+                                    <th>Prism</th>
+                                    <th>Add</th>
+                                    <th>Va</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <field name="name" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_syh" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_cyl" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_axis" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_prism" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_add" class="number_value" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_va" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_syh" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_cyl" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_axis" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_prism" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_add" class="number_value" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_va" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span style="font-size:20px">Fitting Details</span>
+                        <div class="row">
+                            <table class="col-md-6">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>R</strong>
+                                    </td>
+                                    <td>
+                                        <strong>L</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Pupil Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_r"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_l"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Mono</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_r"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_l"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Seg Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_r"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_l"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>PD</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_r"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_l"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="col-md-6">
+                                    <table>
+
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Lens Material</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center"></td>
+                                            <td style="width:200px">
+                                                <field name="lens_material"/>
+                                            </td>
+                                        </tr>
+                                        <br></br>
+                                        <br></br>
+                                        <tr>
+                                            <td style="width:100px"></td>
+                                            <td style="width:50px; text-align:center">
+                                                <strong>Select</strong>
+                                            </td>
+                                            <td style="width:200px"></td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Lens Type OD</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center">
+                                                <field name="lens_select_od" help="Select to dispense"/>
+                                            </td>
+                                            <td style="width:200px">
+                                                <field name="lens_type_od" widget="many2many_tags" attrs="{'required':['|',('lens_select_od','=',True)],'invisible':['|',('lens_select_od','!=',True)]}"/>
+                                                <strong>
+                                                    <b style="color:Red;" attrs="{'invisible':['|',('lens_select_od','=',True)]}">No Right Lens</b>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Lens Type OS</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center">
+                                                <field name="lens_select_os" help="Select to dispense"/>
+                                            </td>
+                                            <td style="width:200px">
+                                                <field name="lens_type_os" widget="many2many_tags" attrs="{'required':['|',('lens_select_os','=',True)],'invisible':['|',('lens_select_os','!=',True)]}"/>
+                                                <strong>
+                                                    <b style="color:Red;" attrs="{'invisible':['|',('lens_select_os','=',True)]}">No Left Lens</b>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Addons OD</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center"></td>
+                                            <td style="width:200px">
+                                                <field name="addons_od" widget="many2many_tags" attrs="{'invisible':['|',('lens_select_od','!=',True)]}"/>
+                                                <strong>
+                                                    <b style="color:Red;" attrs="{'invisible':['|',('lens_select_od','=',True)]}">No Right Lens</b>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Addons OS</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center"></td>
+                                            <td style="width:200px">
+                                                <field name="addons_os" widget="many2many_tags" attrs="{'invisible':['|',('lens_select_os','!=',True)]}"/>
+                                                <strong>
+                                                    <b style="color:Red;" attrs="{'invisible':['|',('lens_select_os','=',True)]}">No Left Lens</b>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>Frame</b>
+                                            </td>
+                                            <td style="width:50px; text-align:center"></td>
+                                            <td style="width:200px">
+                                                <field name="frame_model" attrs="{'required':['|',('own_frame','!=',True)],'invisible':['|',('own_frame','=',True)]}"/>
+                                                <strong>
+                                                    <b style="color:Red;" attrs="{'invisible':['|',('own_frame','!=',True)]}">Own Frame Selected</b>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>
+                                                    <b>Own Frame</b>
+                                                </strong>
+                                            </td>
+                                            <td style="width:50px; text-align:center">
+                                                <field name="own_frame" help="Patient will use own Frame"/>
+                                            </td>
+                                            <td style="width:50px; text-align:center"></td>
+                                        </tr>
+                                    </table>
+<!--                                <group>
+                                    <field name="lens_material"/>
+                                    <field name="lens_type_od" widget="many2many_tags"/>
+                                    <field name="lens_type_os" widget="many2many_tags"/>
+                                    <field name="addons_od" widget="many2many_tags"/>
+                                    <field name="addons_os" widget="many2many_tags"/>
+                                    <field name="frame_model" attrs="{'required':['|',('own_frame','!=',True)],'invisible':['|',('own_frame','=',True)]}"/>
+                                    <field name="own_frame"/>
+                                </group>-->
+                                <button name="fitting_details_apply" class="btn btn-primary" type="object"
+                                        string="Apply"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>D</th>
+                                        <th>E</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:100px">
+                                            <field name="fitting_a" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_b" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_d" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_e" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="width:130px">
+                                        <b>Shape</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="shape" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <div>
+                                <b>Special Instructions</b>
+                            </div>
+                            <div>
+                                <field name="instruction" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                            </div>
+                        </div>
+                        <field name="pricelist_id" invisible="1"/>
+                        <field name="readonly_checkbox" invisible="1"/>
+                        <field name="wizard_final_rx_ids"
+                               attrs="{'readonly':['|',('invoice_id','!=',False),('readonly_checkbox','=',True)]}">
+                            <tree editable="bottom" create="0" delete="0">
+                                <field name="product_id" domain="[('type','in',['product','consu'])]"/>
+                                <field name="name"/>
+                                <field name="icd_codes_ids" widget="many2many_tags"/>
+                                <field name="product_uom_qty"/>
+                                <field name="price_unit"/>
+                                <field name="tax_id" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                <field name="price_subtotal" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="price_total" widget="monetary"/>
+                                <field name="final_rx_id" invisible="1"/>
+                                <field name="currency_id" invisible="0"/>
+                                <field name="final_rx_flage" invisible="1"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <field name="clinical_final_rx_id" invisible="1"/>
+                            <field name="clinical_exam_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Save" class="btn btn-primary" name="submit_fitting_details"
+                                type="object"/>
+                        <button string="Cancel" class="btn btn-primary" special="cancel"
+                                type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="final_rx_fitting_details_contact_form" model="ir.ui.view">
+            <field name="name">Contact Fitting Details</field>
+            <field name="model">wizard.final.rx.contact</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <span style="font-size: 20px;color:#666666">Final RX</span>
+                        <field name="invoice_id" invisible="1"/>
+                        <field name="repurchase" invisible="1"/>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Sph</th>
+                                    <th>Cyl</th>
+                                    <th>Axis</th>
+                                    <th>Add</th>
+                                    <th>Va</th>
+                                    <th>Sph</th>
+                                    <th>Cyl</th>
+                                    <th>Axis</th>
+                                    <th>Add</th>
+                                    <th>Va</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <field name="name" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_syh" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_cyl" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_axis" readonly="1"/>
+                                    </td>
+
+                                    <td>
+                                        <field name="od_add" class="number_value" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="od_va" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_syh" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_cyl" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_axis" readonly="1"/>
+                                    </td>
+
+                                    <td>
+                                        <field name="os_add" class="number_value" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="os_va" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <table>
+                                <thead>
+                                    <th></th>
+                                    <th style="text-align:center">R</th>
+                                    <th></th>
+                                    <th style="text-align:center">L</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Diameter</b>
+                                        </td>
+                                        <td>
+                                            <field name="diameter_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="diameter_l"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Base Curve</b>
+                                        </td>
+                                        <td>
+                                            <field name="base_curve_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="base_curve_l"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Over Refraction</b>
+                                        </td>
+                                        <td>
+                                            <field name="over_fraction_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="over_fraction_l"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Axis Orientation</b>
+                                        </td>
+                                        <td>
+                                            <field name="axis_orientation_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="axis_orientation_l"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Movement</b>
+                                        </td>
+                                        <td>
+                                            <field name="movement_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="movement_l"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Sag</b>
+                                        </td>
+                                        <td>
+                                            <field name="sag_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="sag_l"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Landing Zone</b>
+                                        </td>
+                                        <td>
+                                            <field name="landing_zone_r"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td>
+                                            <field name="landing_zone_l"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>Notes</strong>
+                                    <br/>
+                                    <field name="notes_r"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Notes</strong>
+                                    <br/>
+                                    <field name="notes_l"/>
+                                </div>
+                            </div>
+                        </div>
+                        <field name="pricelist_id" invisible="1"/>
+                        <field name="wizard_final_rx_ids" attrs="{'readonly':[('invoice_id','!=',False)]}">
+                            <tree editable="bottom">
+                                <field name="product_id"
+                                       domain="[('type','in',['product','consu']),('categ_id.name','=','Contact Lenses')]"/>
+                                <field name="l_r" string="Eye"/>
+                                <field name="name"/>
+                                <field name="icd_codes_ids" widget="many2many_tags"/>
+                                <field name="product_uom_qty"/>
+                                <field name="price_unit"/>
+                                <field name="tax_id" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                <field name="price_subtotal" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="price_total" widget="monetary"/>
+                                <field name="final_rx_id" invisible="1"/>
+                                <field name="currency_id" invisible="0"/>
+                                <field name="final_rx_flage" invisible="1"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <field name="clinical_final_rx_id" invisible="1"/>
+                            <field name="clinical_exam_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Save" class="btn btn-primary" name="submit_fitting_details"
+                                type="object"/>
+                        <button string="Cancel" class="btn btn-primary" special="cancel"
+                                type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

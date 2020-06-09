@@ -1,0 +1,1616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="clinical_examination_tree_view" model="ir.ui.view">
+            <field name="name">Examination</field>
+            <field name="model">clinical.examination</field>
+            <field name="arch" type="xml">
+                <tree default_order="exam_date desc">
+                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="acc_no"/>
+                    <field name="exam_date"/>
+                    <field name="repurchase"/>
+                    <field name="birth_date"/>
+                    <field name="age_at_exam"/>
+                    <field name="occupation"/>
+                    <field name="lang"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="clinical_final_rx_tree_view" model="ir.ui.view">
+            <field name="name">Clinical Final RX Tree</field>
+            <field name="model">clinical.final.rx</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="name"/>
+                    <field name="od_syh" class="number_value"/>
+                    <field name="od_cyl" class="number_value"/>
+                    <field name="od_axis"/>
+                    <field name="od_prism"/>
+                    <field name="od_add" class="number_value"/>
+                    <field name="od_va"/>
+                    <field name="os_syh" class="number_value"/>
+                    <field name="os_cyl" class="number_value"/>
+                    <field name="os_axis"/>
+                    <field name="os_prism"/>
+                    <field name="os_add" class="number_value"/>
+                    <field name="os_va"/>
+                    <field name="task_id" invisible="1"/>
+                    <field name="invoice_id" invisible="1"/>
+                    <field name="dispense" widget="boolean_toggle" />
+<!--
+                           style="pointer-events:none;"/>
+ -->
+                    <button name="add_fitting_details" type="object"
+                            string="Fitting Details" class="btn btn-primary"/>
+                    <button name="add_to_job_queue" type="object"
+                            attrs="{'invisible':['|',('task_id','!=',False),('invoice_id','=',False)]}"
+                            string="Add To Job Queue" class="btn btn-danger"/>
+                    <button name="view_project_job" type="object"
+                            attrs="{'invisible':[('task_id','=',False)]}"
+                            string="View Job" class="btn btn-primary"/>
+                    <field name="final_rx_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="clinical_final_rx_form_view" model="ir.ui.view">
+            <field name="name">Clinical Final RX Form</field>
+            <field name="model">clinical.final.rx</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <span style="font-size:20px">Fitting Details (Spectacles)</span>
+                        <div class="row">
+                            <table class="col-md-6">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>R</strong>
+                                    </td>
+                                    <td>
+                                        <strong>L</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Pupil Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_r" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pupil_heights_l" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Mono</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_r" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="mono_l" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>Seg Heights</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_r" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="seg_heights_l" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:100px">
+                                        <b>PD</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_r" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="pd_l" class="toms_form_number"
+                                               style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="col-md-6">
+                                <group>
+                                    <field name="lens_material" readonly="1"/>
+                                    <field name="lens_type_od" widget="many2many_tags" readonly="1"/>
+                                    <field name="lens_type_os" widget="many2many_tags" readonly="1"/>
+                                    <field name="addons_od" widget="many2many_tags" readonly="1"/>
+                                    <field name="addons_os" widget="many2many_tags" readonly="1"/>
+                                    <field name="frame_model" readonly="1"/>
+                                </group>
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>D</th>
+                                        <th>E</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:100px">
+                                            <field name="fitting_a" readonly="1"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_b" readonly="1"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_d" readonly="1"/>
+                                        </td>
+                                        <td style="width:100px">
+                                            <field name="fitting_e" readonly="1"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="width:130px">
+                                        <b>Shape</b>
+                                    </td>
+                                    <td style="width:150px">
+                                        <field name="shape" style="margin-bottom:0px" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div>
+                            <div>
+                                <b>Special Instructions</b>
+                            </div>
+                            <div>
+                                <field name="instruction" readonly="0"/>
+                            </div>
+                        </div>
+                        <field name="clinical_final_rx_ids" readonly="1">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="icd_codes_ids" widget="many2many_tags"/>
+                                <field name="product_uom_qty"/>
+                                <field name="price_unit"/>
+                                <field name="tax_id" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                                <field name="discount"
+                                       groups="sale.group_discount_per_so_line"/>
+                                <field name="price_subtotal" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="price_total" widget="monetary"/>
+                                <field name="currency_id" invisible="0"/>
+                                <field name="display_final_rx_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinical_examination_form_view" model="ir.ui.view">
+            <field name="name">Examination</field>
+            <field name="model">clinical.examination</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="progress_examination" states="new,cancel"
+                                string="In Progress" type="object" class="btn-primary"/>
+                        <button name="examination_invoice"
+                                attrs="{'invisible':['|',('invoice_id','!=',False),('state','in',['new','done','cancel'])]}"
+                                string="Create Invoice" type="object" class="btn-primary"/>
+                        <button name="done_examination" states="inprogress" string="Done"
+                                type="object" class="btn-primary"/>
+                        <button name="cancel_examination" string="Cancel" type="object"
+                                class="btn-primary"/>
+                        <button name="examination_repurchase" string="Repurchase" type="object"
+                                class="btn-primary"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,inprogress,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="open_patient_exam"
+                                    attrs="{'invisible':[('exam_count','=',0)]}" icon="fa-ticket"
+                                    type="object">
+                                <field name="exam_count" string="Exams" widget="statinfo"/>
+                            </button>
+                            <button name="action_view_invoice" attrs="{'invisible':[('invoice_id','=',False)]}"
+                                    type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                            <button name="action_open_job" type="object" class="oe_stat_button"
+                                    attrs="{'invisible':[('job_count','=',0)]}" icon="fa-pencil-square-o">
+                                <field name="job_count" widget="statinfo" string="Jobs"/>
+                            </button>
+                            <button name="action_contact_count" attrs="{'invisible':[('contact_count','=',0)]}"
+                                    type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                                <field name="contact_count" widget="statinfo" string="Contacts"/>
+                            </button>
+                            <button name="toggle_active" type="object" class="oe_stat_button"
+                                    icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group string="Patient Card"></group>
+                        <group>
+                            <group attrs="{'readonly':[('invoice_id','!=',False)]}">
+                                <field name="partner_id" required="1" domain="[('customer','=',True)]"
+                                       attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="account_number"/>
+                                <field name="occupation" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="lang" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="repurchase" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="birth_date" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="age_at_exam" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="exam_date" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Patient History">
+                                <group string="Family Info">
+                                    <field name="child_ids" readonly="1" nolabel="1">
+                                        <kanban>
+                                            <field name="id"/>
+                                            <field name="color"/>
+                                            <field name="name"/>
+                                            <field name="title"/>
+                                            <field name="type"/>
+                                            <field name="email"/>
+                                            <field name="parent_id"/>
+                                            <field name="is_company"/>
+                                            <field name="function"/>
+                                            <field name="phone"/>
+                                            <field name="street"/>
+                                            <field name="street2"/>
+                                            <field name="zip"/>
+                                            <field name="city"/>
+                                            <field name="country_id"/>
+                                            <field name="mobile"/>
+                                            <field name="state_id"/>
+                                            <field name="image_small"/>
+                                            <field name="lang"/>
+                                            <!-- fields in form x2many view to diminish requests -->
+                                            <field name="comment"/>
+                                            <field name="customer"/>
+                                            <field name="display_name"/>
+                                            <field name="supplier"/>
+                                            <templates>
+                                                <t t-name="kanban-box">
+                                                    <t t-set="color" t-value="kanban_color(record.color.raw_value)"/>
+                                                    <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
+                                                        <div class="o_kanban_image">
+                                                            <img alt="" t-if="record.image_small.raw_value"
+                                                                 t-att-src="kanban_image('res.partner', 'image_small', record.id.raw_value)"/>
+                                                            <t t-if="!record.image_small.raw_value">
+                                                                <img alt="Delivery"
+                                                                     t-if="record.type.raw_value === 'delivery'"
+                                                                     t-att-src="_s + &quot;/base/static/img/truck.png&quot;"/>
+                                                                <img alt="Invoice"
+                                                                     t-if="record.type.raw_value === 'invoice'"
+                                                                     t-att-src="_s + &quot;/base/static/img/money.png&quot;"/>
+                                                                <t t-if="record.type.raw_value !== 'invoice' &amp;&amp; record.type.raw_value !== 'delivery'">
+                                                                    <img alt="Logo"
+                                                                         t-if="record.is_company.raw_value === true"
+                                                                         t-att-src="_s + &quot;/base/static/img/company_image.png&quot;"/>
+                                                                    <img alt="Avatar"
+                                                                         t-if="record.is_company.raw_value === false"
+                                                                         t-att-src="_s + &quot;/base/static/img/avatar.png&quot;"/>
+                                                                </t>
+                                                            </t>
+                                                        </div>
+                                                        <div class="oe_kanban_details">
+                                                            <field name="name"/>
+                                                            <div t-if="record.function.raw_value">
+                                                                <field name="function"/>
+                                                            </div>
+                                                            <div t-if="record.email.raw_value">
+                                                                <field name="email" widget="email"/>
+                                                            </div>
+                                                            <div t-if="record.type.raw_value != 'contact'">
+                                                                <div>
+                                                                    <field name="zip"/>
+                                                                    <field name="city"/>
+                                                                </div>
+                                                                <field t-if="record.state_id.raw_value"
+                                                                       name="state_id"/>
+                                                                <field name="country_id"/>
+                                                            </div>
+                                                            <div t-if="record.phone.raw_value">Phone:
+                                                                <field name="phone"/>
+                                                            </div>
+                                                            <div t-if="record.mobile.raw_value">Mobile:
+                                                                <field name="mobile"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
+                                    </field>
+                                </group>
+                                <group string="Patient History">
+                                    <group>
+                                        <field name="old_chief_complaints"/>
+                                    </group>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:100px">
+                                                <b>CD Ratios</b>
+                                            </td>
+                                            <td style="width:200px">
+                                                <field name="old_cd_ratios_1"/>
+                                            </td>
+                                            <td style="width:50px"></td>
+                                            <td style="width:200px">
+                                                <field name="old_cd_ratios_2"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <group>
+                                        <div>
+                                            <b>Posterior Notes</b>
+                                        </div>
+                                        <div>
+                                            <field name="old_posterior_notes"/>
+                                        </div>
+                                        <div>
+                                            <b>IOL Notes</b>
+                                        </div>
+                                        <div>
+                                            <field name="old_iol_notes"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Patient Card">
+                                <group col="4">
+                                    <field name="acc_no"/>
+                                    <field name="chief_complaints"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    <field name="health"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    <field name="specific_visual_requirements"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    <field name="invoice_id" invisible="1"
+                                           attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                </group>
+                            </page>
+
+                            <page string="Occular">
+                                <table>
+                                    <thead>
+                                        <th></th>
+                                        <th>OD</th>
+                                        <th></th>
+                                        <th>OS</th>
+                                    </thead>
+                                    <tbody>
+                                        <br/>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <b>Tonometry</b>
+                                            </td>
+                                            <td>
+                                                <field name="occuler_od_tometry"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td style="width:150px"></td>
+                                            <td>
+                                                <field name="occuler_os_tometry"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <h2>
+                                                    <b>Pupil Reflex</b>
+                                                </h2>
+                                            </td>
+                                            <!--<td style="text-align:center">-->
+                                            <!--<field name="occuler_od_pupils" attrs="{'readonly':[('invoice_id','!=',False)]}" />-->
+                                            <!--</td>-->
+                                            <!--<td style="width:150px"></td>-->
+                                            <!--<td style="text-align:center">-->
+                                            <!--<field name="occuler_os_pupils" attrs="{'readonly':[('invoice_id','!=',False)]}" />-->
+                                            <!--</td>-->
+                                        </tr>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <b>Equal</b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_od_equal"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td style="width:150px"></td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_os_equal"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <b>Round</b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_od_round"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td style="width:150px;padding-left:10px;padding-right:10px">
+                                                <button type="object" name="copy_check_box" string="Copy Check Box"
+                                                        style="width:150px" class="btn btn-primary"></button>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_os_round"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <b>Consensual</b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_od_consensual"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td style="width:150px"></td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_os_consensual"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:110px">
+                                                <b>Direct</b>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_od_direct"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td style="width:150px"></td>
+                                            <td style="text-align:center">
+                                                <field name="occuler_os_direct"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <br/>
+                                <group>
+                                    <field name="occuler_npc" class="oe_inline"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                </group>
+                                <div>
+                                    <b>Anterior Notes</b>
+                                </div>
+                                <div>
+                                    <field name="anterior_notes"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                </div>
+                                <br/>
+                                <b>
+                                    <h2>
+                                        <b>
+                                            <span>Fundus</span>
+                                        </b>
+                                    </h2>
+                                </b>
+                                <table>
+                                    <tr>
+                                        <td style="width:100px">
+                                            <b>CD Ratios</b>
+                                        </td>
+                                        <td style="width:200px">
+                                            <field name="cd_ratios_1"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td style="width:200px">
+                                            <field name="cd_ratios_2"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                 <table>
+                                    <tr>
+                                        <td style="width:100px">
+                                            <b>Fundus Images</b>
+                                        </td>
+                                        <td style="width:200px">
+                                            <field name="fundus_od" widget="image" class="oe_avatar" options='{"preview_image": "image_medium"}'/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td style="width:200px">
+                                            <field name="fundus_os" widget="image" class="oe_avatar" options='{"preview_image": "image_medium"}'/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/>
+                                <div>
+                                    <b>Posterior Notes</b>
+                                </div>
+                                <div>
+                                    <field name="posterior_notes"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                </div>
+                                <br/>
+                                <br/>
+                                <b>
+                                    <h2>
+                                        <b>
+                                            <span>IOL</span>
+                                        </b>
+                                    </h2>
+                                </b>
+                                <table>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>Clear</b>
+                                        </td>
+                                        <td style="">
+                                            <field name="iol_clear_first"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:50px"></td>
+                                        <td style="">
+                                            <field name="iol_clear_second"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:110px">
+                                            <b>NS</b>
+                                        </td>
+                                        <td>
+                                            <field name="iol_ns_first"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:150px;padding-left:10px;padding-right:10px">
+                                            <button type="object" name="copy_iol_check_box" string="Copy Check Box"
+                                                    style="width:150px" class="btn btn-primary"></button>
+                                        </td>
+                                        <td>
+                                            <field name="iol_ns_second"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Capsular</b>
+                                        </td>
+                                        <td>
+                                            <field name="iol_capsular_first"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                        <td style="width:150px"></td>
+                                        <td>
+                                            <field name="iol_capsular_second"
+                                                   attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/>
+                                <br/>
+                                <div>
+                                    <b>IOL Notes</b>
+                                </div>
+                                <div>
+                                    <field name="iol_notes"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                </div>
+                            </page>
+
+                            <page string="Refraction">
+                                <br/>
+                                <div>
+                                    <table>
+                                        <thead>
+                                            <th></th>
+                                            <th>OD</th>
+                                            <th></th>
+                                            <th>OS</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <strong>Unaided</strong>
+                                                </td>
+                                                <td style="width:150px"></td>
+                                                <td>
+                                                    <strong>Unaided</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:200px">
+                                                    <b>Visual Acuity</b>
+                                                </td>
+                                                <td style="width:200px;">
+                                                    <field name="od_unaided_distance"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                                <td></td>
+                                                <td style="width:200px">
+                                                    <field name="os_unaided_distance"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                            </tr>
+                                            <br/>
+                                            <br/>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <strong>Aided</strong>
+                                                </td>
+                                                <td style="width:150px"></td>
+                                                <td>
+                                                    <strong>Aided</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:200px">
+                                                    <b>Visual Acuity</b>
+                                                </td>
+                                                <td style="width:200px;">
+                                                    <field name="od_aided_distance"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                                <td></td>
+                                                <td style="width:200px">
+                                                    <field name="os_aided_distance"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                            </tr>
+                                            <br/>
+                                            <br/>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <strong>Distance</strong>
+                                                </td>
+                                                <td style="width:150px"></td>
+                                                <td>
+                                                    <strong>Near</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:200px">
+                                                    <b>PD</b>
+                                                </td>
+                                                <td style="width:200px;">
+                                                    <field name="od_pd_distance"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                                <td></td>
+                                                <td style="width:200px">
+                                                    <field name="os_pd_distance" style="margin-bottom:0px"
+                                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br/>
+                                <button class="btn btn-primary refresh_exam" name="refresh_examination" type="object"
+                                        string="Refresh"/>
+                                <group string="Habitual">
+                                    <field name="clinical_habitual_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           nolabel="1">
+                                        <tree editable="bottom" delete="0">
+                                            <field name="name" required="1"/>
+                                            <field name="date"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_prism"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_prism"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="is_subjective" invisible="1"/>
+                                            <field name="clinical_examination_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Test">
+                                    <field name="clinical_test_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           nolabel="1">
+                                        <tree editable="bottom" create="0" delete="0">
+                                            <field name="name" invisible="1"/>
+                                            <field name="test_name" readonly="1"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_prism"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_prism"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="clinical_examination_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <br/>
+                                <div>
+                                    <div>
+                                        <h6>
+                                           <b>Clinical Notes</b>
+                                        </h6>
+                                    </div>
+                                    <div>
+                                        <field name="note_block_test"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </div>
+                                </div>
+                                 <br/>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <b>Phorias</b>
+                                            </td>
+                                            <td>
+                                                <strong>Horizontal</strong>
+                                            </td>
+                                            <td style="width:10px"></td>
+                                            <td>
+                                                <strong>Vertical</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:130px">
+                                                <b>Distance</b>
+                                            </td>
+                                            <td style="width:150px;">
+                                                <field name="distance_horizontal"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td></td>
+                                            <td style="width:150px;">
+                                                <field name="distance_vertical"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:130px">
+                                                <b>Near</b>
+                                            </td>
+                                            <td style="width:150px;">
+                                                <field name="near_horizontal"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td></td>
+                                            <td style="width:150px;">
+                                                <field name="near_vertical"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:130px">
+                                                <b>14B</b>
+                                            </td>
+                                            <td style="width:150px">
+                                                <field name="b_horizontal"
+                                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <!--<td style="width:150px">-->
+                                            <!--<field name="b_vertical" attrs="{'readonly':[('invoice_id','!=',False)]}" />-->
+                                            <!--</td>-->
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br/>
+                                <group string="Final RX">
+                                    <field name="clinical_final_rx_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           context="{'clinical_test_ids':clinical_test_ids,'record_id':id}" nolabel="1">
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                    <group>
+                                                        <field name="name" required="1"/>
+                                                        <field name="od_syh"/>
+                                                        <field name="od_cyl"/>
+                                                        <field name="od_axis"/>
+                                                        <field name="od_prism"/>
+                                                        <field name="od_add" class="number_value"/>
+                                                        <field name="od_va"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="os_syh"/>
+                                                        <field name="os_cyl"/>
+                                                        <field name="os_axis"/>
+                                                        <field name="os_prism"/>
+                                                        <field name="os_add" class="number_value"/>
+                                                        <field name="os_va"/>
+                                                        <field name="dispense" widget="boolean_toggle"/>
+                                                    </group>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="name" required="1"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_prism"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_prism"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="dispense" widget="boolean_toggle"/>
+                                            <field name="final_rx_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <br/>
+                                <div>
+                                    <div>
+                                        <h6>
+                                            <b>Refractive Notes</b>
+                                        </h6>
+                                    </div>
+                                    <div>
+                                        <field name="note_block"
+                                               attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </page>
+
+                            <page string="Contact Lenses">
+                                <br/>
+                                <button class="btn btn-primary refresh_exam" name="refresh_examination" type="object"
+                                        string="Refresh"/>
+                                <group string="Habitual">
+                                    <field name="contact_clinical_habitual_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           nolabel="1">
+                                        <tree editable="bottom" delete="0">
+                                            <field name="name" required="1"/>
+                                            <field name="date"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="is_subjective" invisible="1"/>
+                                            <field name="clinical_examination_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Test">
+                                    <field name="contact_clinical_test_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           nolabel="1">
+                                        <tree editable="bottom" create="0" delete="0">
+                                            <field name="name" invisible="1"/>
+                                            <field name="test_name" readonly="1"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="clinical_examination_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <br/>
+                                <group string="Final RX">
+                                    <field name="clinical_contact_final_rx_ids"
+                                           attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                           context="{'contact_clinical_test_ids':contact_clinical_test_ids,'record_id':id}"
+                                           nolabel="1">
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                    <group>
+                                                        <field name="name" required="1"/>
+                                                        <field name="od_syh"/>
+                                                        <field name="od_cyl"/>
+                                                        <field name="od_axis"/>
+                                                        <field name="od_add" class="number_value"/>
+                                                        <field name="od_va"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="os_syh"/>
+                                                        <field name="os_cyl"/>
+                                                        <field name="os_axis"/>
+                                                        <field name="os_add" class="number_value"/>
+                                                        <field name="os_va"/>
+                                                        <field name="dispense" widget="boolean_toggle"/>
+                                                    </group>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="name" required="1"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="dispense" widget="boolean_toggle"/>
+                                            <field name="final_rx_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <br/>
+                                <div>
+                                    <table>
+                                        <thead>
+                                            <th></th>
+                                            <th style="text-align:center">R</th>
+                                            <th></th>
+                                            <th style="text-align:center">L</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Diameter</b>
+                                                </td>
+                                                <td>
+                                                    <field name="diameter_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="diameter_l"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Base Curve</b>
+                                                </td>
+                                                <td>
+                                                    <field name="base_curve_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="base_curve_l"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Over Refraction</b>
+                                                </td>
+                                                <td>
+                                                    <field name="over_fraction_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="over_fraction_l"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Axis Orientation</b>
+                                                </td>
+                                                <td>
+                                                    <field name="axis_orientation_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="axis_orientation_l"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Movement</b>
+                                                </td>
+                                                <td>
+                                                    <field name="movement_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="movement_l"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Sag</b>
+                                                </td>
+                                                <td>
+                                                    <field name="sag_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="sag_l"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width:110px">
+                                                    <b>Landing Zone</b>
+                                                </td>
+                                                <td>
+                                                    <field name="landing_zone_r"/>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                                <td>
+                                                    <field name="landing_zone_l"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <strong>Notes</strong>
+                                            <br/>
+                                            <field name="notes_r"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong>Notes</strong>
+                                            <br/>
+                                            <field name="notes_l"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </page>
+
+                            <page string="Fees/Miscellaneous">
+                                <label for="pricelist_id"/>
+                                <field name="pricelist_id"
+                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}"
+                                       nolabel="1"/>
+                                <field name="examination_line_ids"
+                                       attrs="{'readonly':['|',('invoice_id','!=',False),('repurchase','!=',False)]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"
+                                               domain="[('categ_id.name','not in',['Lenses','Addons','Frames'])]"/>
+                                        <field name="name"/>
+                                        <field name="icd_codes_ids" widget="many2many_tags"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="tax_id" widget="many2many_tags" options="{'no_create': True}"/>
+                                        <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                        <field name="price_subtotal" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="price_total" widget="monetary"/>
+                                        <field name="clinical_exam_id" invisible="1"/>
+                                        <field name="currency_id" invisible="0"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="amount_untaxed" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="amount_total"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1"
+                                           class="oe_subtotal_footer_separator" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+
+                            <page string="Dispensing Sheet">
+                                <group string="Final RX (Spectacles)">
+                                    <field name="clinical_final_rx_dis_ids" nolabel="1"
+                                           context="{'test_context':True}">
+<!--
+                                        <form>
+                                            <sheet>
+                                                <span style="font-size:20px">Fitting Details (Spectacles)</span>
+                                                <div class="row">
+                                                    <table class="col-md-6">
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>
+                                                                <strong>R</strong>
+                                                            </td>
+                                                            <td>
+                                                                <strong>L</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px">
+                                                                <b>Pupil Heights</b>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="pupil_heights_r" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="pupil_heights_l" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px">
+                                                                <b>Mono</b>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="mono_r" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="mono_l" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px">
+                                                                <b>Seg Heights</b>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="seg_heights_r" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="seg_heights_l" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px">
+                                                                <b>PD</b>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="pd_r" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="pd_l" class="toms_form_number"
+                                                                       style="margin-bottom:0px"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="col-md-6">
+                                                        <group>
+                                                            <field name="lens_material"/>
+                                                            <field name="lens_type_od" widget="many2many_tags"/>
+                                                            <field name="lens_type_os" widget="many2many_tags"/>
+                                                            <field name="addons_od" widget="many2many_tags"/>
+                                                            <field name="addons_os" widget="many2many_tags"/>
+                                                            <field name="frame_model"/>
+                                                        </group>
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <div>
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>A</th>
+                                                                <th>B</th>
+                                                                <th>D</th>
+                                                                <th>E</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px">
+                                                                    <field name="fitting_a"/>
+                                                                </td>
+                                                                <td style="width:100px">
+                                                                    <field name="fitting_b"/>
+                                                                </td>
+                                                                <td style="width:100px">
+                                                                    <field name="fitting_d"/>
+                                                                </td>
+                                                                <td style="width:100px">
+                                                                    <field name="fitting_e"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <br/>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <td style="width:130px">
+                                                                <b>Shape</b>
+                                                            </td>
+                                                            <td style="width:150px">
+                                                                <field name="shape" style="margin-bottom:0px"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <br/>
+                                                <div>
+                                                    <div>
+                                                        <b>Special Instructions</b>
+                                                    </div>
+                                                    <div>
+                                                        <field name="instruction"/>
+                                                    </div>
+                                                </div>
+                                                <field name="clinical_final_rx_ids">
+                                                    <tree>
+                                                        <field name="product_id"/>
+                                                        <field name="name"/>
+                                                        <field name="icd_codes_ids" widget="many2many_tags"/>
+                                                        <field name="product_uom_qty"/>
+                                                        <field name="price_unit"/>
+                                                        <field name="tax_id" widget="many2many_tags"
+                                                               options="{'no_create': True}"/>
+                                                        <field name="discount"
+                                                               groups="sale.group_discount_per_so_line"/>
+                                                        <field name="price_subtotal" widget="monetary"
+                                                               options="{'currency_field': 'currency_id'}"/>
+                                                        <field name="price_total" widget="monetary"/>
+                                                        <field name="currency_id" invisible="0"/>
+                                                        <field name="display_final_rx_id" invisible="1"/>
+                                                    </tree>
+                                                </field>
+                                            </sheet>
+                                        </form>
+                                        <tree editable="bottom" create="0" delete="0">
+                                            <field name="name"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_prism"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_prism"/>
+                                            <field name="os_add" class="number_value"/>
+                                            <field name="os_va"/>
+                                            <field name="task_id" invisible="1"/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="dispense" widget="boolean_toggle" readonly="1"
+                                                   style="pointer-events:none;"/>
+                                            <button name="add_fitting_details" type="object"
+                                                    string="Fitting Details" class="btn btn-primary"/>
+                                            <button name="add_to_job_queue"
+                                                    attrs="{'invisible':['|',('task_id','!=',False),('invoice_id','=',False)]}"
+                                                    type="object"
+                                                    string="Add To Job Queue" class="btn btn-danger"/>
+                                            <button name="view_project_job"
+                                                    attrs="{'invisible':[('task_id','=',False)]}" type="object"
+                                                    string="View Job" class="btn btn-primary"/>
+                                            <field name="final_rx_id" invisible="1"/>
+                                        </tree>
+-->
+                                    </field>
+                                </group>
+                                <group string="Final RX (Contact Lenses)">
+                                    <field name="clinical_contact_final_rx_dis_ids" readonly="1" nolabel="1"
+                                           context="{'test_context':True}">
+                                        <form>
+                                            <sheet>
+                                                <div>
+                                                    <table>
+                                                        <thead>
+                                                            <th></th>
+                                                            <th style="text-align:center">R</th>
+                                                            <th></th>
+                                                            <th style="text-align:center">L</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Diameter</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="diameter_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="diameter_l"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Base Curve</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="base_curve_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="base_curve_l"/>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Over Refraction</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="over_fraction_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="over_fraction_l"/>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Axis Orientation</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="axis_orientation_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="axis_orientation_l"/>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Movement</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="movement_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="movement_l"/>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Sag</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="sag_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="sag_l"/>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="width:110px">
+                                                                    <b>Landing Zone</b>
+                                                                </td>
+                                                                <td>
+                                                                    <field name="landing_zone_r"/>
+                                                                </td>
+                                                                <td style="width:50px"></td>
+                                                                <td>
+                                                                    <field name="landing_zone_l"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <strong>Notes</strong>
+                                                            <br/>
+                                                            <field name="notes_r"/>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <strong>Notes</strong>
+                                                            <br/>
+                                                            <field name="notes_l"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <field name="clinical_final_rx_ids">
+                                                    <tree>
+                                                        <field name="product_id"
+                                                               domain="[('type','in',['product','consu'])]"/>
+                                                        <field name="name"/>
+                                                        <field name="icd_codes_ids" widget="many2many_tags"/>
+                                                        <field name="product_uom_qty"/>
+                                                        <field name="price_unit"/>
+                                                        <field name="tax_id" widget="many2many_tags"
+                                                               options="{'no_create': True}"/>
+                                                        <field name="discount"
+                                                               groups="sale.group_discount_per_so_line"/>
+                                                        <field name="price_subtotal" widget="monetary"
+                                                               options="{'currency_field': 'currency_id'}"/>
+                                                        <field name="price_total" widget="monetary"/>
+                                                        <field name="currency_id" invisible="0"/>
+                                                        <field name="display_final_rx_id" invisible="1"/>
+                                                    </tree>
+                                                </field>
+                                            </sheet>
+                                        </form>
+                                        <tree editable="bottom" create="0" delete="0">
+                                            <field name="name"/>
+                                            <field name="od_syh" class="number_value"/>
+                                            <field name="od_cyl" class="number_value"/>
+                                            <field name="od_axis"/>
+                                            <field name="od_add" class="number_value"/>
+                                            <field name="od_va"/>
+                                            <field name="os_syh" class="number_value"/>
+                                            <field name="os_cyl" class="number_value"/>
+                                            <field name="os_axis"/>
+                                            <field name="os_add"/>
+                                            <field name="os_va" class="number_value"/>
+                                            <field name="task_id" invisible="0"/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="dispense" widget="boolean_toggle" readonly="1"
+                                                   style="pointer-events:none;"/>
+                                            <button name="add_fitting_details" type="object"
+                                                    string="Fitting Details" class="btn btn-primary"/>
+                                            <button name="add_to_job_queue"
+                                                    attrs="{'invisible':['|',('task_id','!=',False),('invoice_id','=',False)]}"
+                                                    type="object"
+                                                    string="Add To Job Queue" class="btn btn-danger"/>
+                                            <button name="view_project_job"
+                                                    attrs="{'invisible':[('task_id','=',False)]}" type="object"
+                                                    string="View Job" class="btn btn-primary"/>
+                                            <field name="final_rx_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <label for="dispensing_pricelist_id"/>
+                                <field name="dispensing_pricelist_id" attrs="{'readonly':[('invoice_id','!=',False)]}"
+                                       nolabel="1"/>
+                                <field name="dispensing_line_ids">
+                                    <tree editable="bottom" create="0">
+                                        <field name="clinical_final_rx_id"
+                                               options="{'no_create': True, 'no_open': True}"
+                                               context="{'record_id' : parent,'from_clinical_examination':True}"
+                                               required="1" readonly="1"/>
+                                        <field name="contact_clinical_final_rx_id"
+                                               options="{'no_create': True, 'no_open': True}"
+                                               context="{'record_id' : parent,'from_clinical_examination':True}"
+                                               required="1" readonly="1"/>
+                                        <field name="l_r"/>
+                                        <field name="product_id" domain="[('type','in',['product','consu'])]"
+                                               readonly="1"/>
+
+                                        <field name="vendor_id" widget="many2many_tags"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="icd_codes_ids" widget="many2many_tags" readonly="1"/>
+                                        <field name="product_uom_qty" readonly="1"/>
+                                        <field name="price_unit" readonly="1"/>
+                                        <field name="tax_id" widget="many2many_tags" options="{'no_create': True}"
+                                               readonly="1"/>
+                                        <field name="discount" groups="sale.group_discount_per_so_line" readonly="1"/>
+                                        <field name="price_subtotal" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="price_total" widget="monetary" readonly="1"/>
+                                        <field name="currency_id" invisible="0" readonly="1"/>
+                                        <field name="final_rx_flage" invisible="1" readonly="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2"
+                                       name="sale_total">
+                                    <field name="dispensing_amount_untaxed" widget='monetary'
+                                           options="{'currency_field': 'dispensing_currency_id'}"/>
+                                    <field name="dispensing_amount_tax" widget='monetary'
+                                           options="{'currency_field': 'dispensing_currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="dispensing_amount_total"/>
+                                    </div>
+                                    <field name="dispensing_amount_total" nolabel="1"
+                                           class="oe_subtotal_footer_separator" widget='monetary'
+                                           options="{'currency_field': 'dispensing_currency_id'}"/>
+                                </group>
+                                <field name="final_rx_subtotal"/>
+                            </page>
+
+                            <page string="Other Info">
+                                <group col="4">
+                                    <field name="optometrist_id" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                    <field name="dispenser_id" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                    <field name="previous_optometrist_id"/>
+                                    <field name="frontliner_id" attrs="{'readonly':[('invoice_id','!=',False)]}"/>
+                                </group>
+                            </page>
+                            <page name="grab_a_heart" string="Grab a Heart">
+                                <group>
+                                    <field name="grab_a_heart" string=" " placeholder="Info about patient useful to future exams"/>
+                                </group>
+                            </page>
+                            <page string="Medical Aid Confirmation">
+                                <field name="medical_aid_confirmation_ids" context="{'default_patient':partner_id}"></field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="clinical_examination_search_view" model="ir.ui.view">
+            <field name="name">Examination Search</field>
+            <field name="model">clinical.examination</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <field name="acc_no"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_clinical_examination" model="ir.actions.act_window">
+            <field name="name">Examination</field>
+            <field name="res_model">clinical.examination</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','!=','cancel'),('state','!=','done'),('active','=',True)]</field>
+        </record>
+
+        <record id="action_clinical_examination_deactive" model="ir.actions.act_window">
+            <field name="name">Examination</field>
+            <field name="res_model">clinical.examination</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('active','=',True),'|',('state','=','cancel'),('state','=','done')]</field>
+        </record>
+
+    </data>
+</odoo>

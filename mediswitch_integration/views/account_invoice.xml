@@ -1,0 +1,98 @@
+<odoo>
+    <record id="inherit_invoice_form_mediswitch_1" model="ir.ui.view">
+        <field name="name">Customer Invoice</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="medical_aid_pay" invisible="1"/>
+                <field name="user_ref" invisible="1"/>
+            </field>
+            <button name="action_invoice_open" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('medical_aid_pay','=',True)]}
+                </attribute>
+            </button>
+            <button name="action_invoice_open" position="after">
+                <button name="action_submit_claim" type="object" string="Submit Claim"
+                        attrs="{'invisible':['|',('claim_level_mediswitch_status','in',['01','02']),'|',('medical_aid_pay','=',False),'&amp;',('medical_aid_pay','=',True),('state','!=','draft')]}"
+                        class="oe_highlight"/>
+                <button name="action_reverse_claim" type="object" string="Reverse Claim"
+                        attrs="{'invisible':['|',('medical_aid_pay','=',False),'&amp;',('medical_aid_pay','=',True),('state','not in',['open','paid'])]}"
+                        class="oe_highlight"/>
+            </button>
+            <button name="301" position="attributes">
+                <attribute name="attrs">{'invisible': [('medical_aid_pay','=',True)]}</attribute>
+            </button>
+<!--            <xpath expr="//page[@string='Contacts']" position="attributes">-->
+<!--            <attribute name="attrs">{}</attribute>-->
+<!--        </xpath>-->
+            <field name="date_invoice" position="replace">
+                <field name="date_invoice"/>
+            </field>
+             <field name="date_invoice" position="before">
+                <field name="claim_level_mediswitch_status" readonly="1" attrs="{'invisible':[('medical_aid_pay',   '=',False)]}"/>
+            </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Mediswitch Claims">
+                        <field name="medical_aid_claims_lines">
+                             <tree create="0" edit="0">
+                                <field name="invoice_id"/>
+                                <field name="destination_code"/>
+                                <field name="user_reference"/>
+                                <field name="response_payload_date"/>
+                                <field name="status"/>
+                                <field name="switch_reference"/>
+                                <field name="retry"/>
+                                <field name="response_payload" groups="base.group_no_one"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+        </field>
+    </record>
+
+
+    <record id="action_partner_msv1" model="ir.actions.act_window">
+        <field name="name">Msv's</field>
+        <field name="res_model">msv.response</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <record id="action_partner_bulk_msv" model="ir.actions.act_window">
+        <field name="name">Bulk MSV</field>
+        <field name="res_model">bulk.msv</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="clinical_msv" name="MSV History" parent="TOMS.clinical_customer" sequence="2" action="action_partner_msv1"/>
+    <menuitem id="bulk_msv" name="Send Bulk MSV" parent="TOMS.clinical_customer" sequence="3" action="action_partner_bulk_msv"/>
+
+    <record id="ir_cron_fetch_operation" model="ir.cron">
+        <field name="name">Mediswitch: fetch operations</field>
+        <field name="model_id" ref="model_mediswitch_submit_claim"/>
+        <field name="state">code</field>
+        <field name="code">model.fetch_operations()</field>
+        <field name="interval_number">4</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field name="active" eval="True" />
+    </record>
+
+    <record id="ir_cron_global_fetch_claims" model="ir.cron">
+        <field name="name">Mediswitch: Global fetch claims</field>
+        <field name="model_id" ref="model_global_fetch_claim"/>
+        <field name="state">code</field>
+        <field name="code">model.fetch_response_cron()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+        <field name="active" eval="True" />
+    </record>
+
+
+
+
+</odoo>

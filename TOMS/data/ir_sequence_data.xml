@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="medical_aid_sequence_1" model="ir.sequence">
+            <field name="name">Medical Aid Sequence</field>
+            <field name="code">res.partner</field>
+            <field name="prefix">SWHFO-</field>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="medical_aid_file_no_seq" model="ir.sequence">
+            <field name="name">Medical Aid File No Sequence</field>
+            <field name="code">file_no</field>
+            <field name="padding">2</field>
+        </record>
+
+        <record id="clinical_examination_sequence" model="ir.sequence">
+            <field name="name">Clinical Examination Sequence</field>
+            <field name="code">examination_seq</field>
+            <field name="prefix">EX-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_project_jobs" model="ir.sequence">
+            <field name="name">Project Job Sequence</field>
+            <field name="code">job_sequence</field>
+            <field name="prefix">JOB-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

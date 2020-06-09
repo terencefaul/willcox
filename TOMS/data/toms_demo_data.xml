@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="medical_aid_private" model="res.partner">
+            <field name="name">Private</field>
+            <field name="is_a_medical_aid">1</field>
+            <field name="customer">0</field>
+        </record>
+
+        <record id="lens_material_1" model="lens.material">
+            <field name="name">Fastcast</field>
+        </record>
+        <record id="lens_material_2" model="lens.material">
+            <field name="name">Normal Glass</field>
+        </record>
+        <record id="lens_material_3" model="lens.material">
+            <field name="name">Normal Plastic</field>
+        </record>
+        <record id="lens_material_4" model="lens.material">
+            <field name="name">Other</field>
+        </record>
+        <record id="lens_type_1" model="lens.type">
+            <field name="name">BiFocal</field>
+        </record>
+        <record id="lens_type_2" model="lens.type">
+            <field name="name">Colorimeter</field>
+        </record>
+        <record id="lens_type_3" model="lens.type">
+            <field name="name">MultiFocal</field>
+        </record>
+        <record id="lens_type_4" model="lens.type">
+            <field name="name">Single Vision</field>
+        </record>
+        <record id="source_1" model="customer.source">
+            <field name="name">News Paper</field>
+        </record>
+        <record id="source_2" model="customer.source">
+            <field name="name">Magazine</field>
+        </record>
+        <record id="source_3" model="customer.source">
+            <field name="name">Radio</field>
+        </record>
+        <record id="source_4" model="customer.source">
+            <field name="name">Television</field>
+        </record>
+        <record id="source_5" model="customer.source">
+            <field name="name">TeleSales</field>
+        </record>
+        <record id="source_6" model="customer.source">
+            <field name="name">Word Of Mouth</field>
+        </record>
+        <record id="source_7" model="customer.source">
+            <field name="name">Other</field>
+        </record>
+
+        <record id="tages_1" model="calendar.event.type">
+            <field name="name">C/Lens Check</field>
+        </record>
+        <record id="tages_2" model="calendar.event.type">
+            <field name="name">C/Lens Check &amp; Fit</field>
+        </record>
+        <record id="tages_3" model="calendar.event.type">
+            <field name="name">C/Lens Exam</field>
+        </record>
+        <record id="tages_4" model="calendar.event.type">
+            <field name="name">C/Lens Fit</field>
+        </record>
+        <record id="tages_5" model="calendar.event.type">
+            <field name="name">C/Lens Purchases</field>
+        </record>
+        <record id="tages_6" model="calendar.event.type">
+            <field name="name">C/Lens Screening</field>
+        </record>
+        <record id="tages_7" model="calendar.event.type">
+            <field name="name">Colorimeter</field>
+        </record>
+        <record id="tages_8" model="calendar.event.type">
+            <field name="name">Cycloplegic</field>
+        </record>
+        <record id="tages_9" model="calendar.event.type">
+            <field name="name">Doctors Script</field>
+        </record>
+        <record id="tages_10" model="calendar.event.type">
+            <field name="name">Drivers License Screening</field>
+        </record>
+        <record id="tages_11" model="calendar.event.type">
+            <field name="name">Ernests Appointments</field>
+        </record>
+        <record id="tages_12" model="calendar.event.type">
+            <field name="name">Remake</field>
+        </record>
+        <record id="tages_13" model="calendar.event.type">
+            <field name="name">Repeat Scripts</field>
+        </record>
+        <record id="tages_14" model="calendar.event.type">
+            <field name="name">Spec Exam</field>
+        </record>
+        <record id="tages_15" model="calendar.event.type">
+            <field name="name">Transfer</field>
+        </record>
+        <record id="tages_16" model="calendar.event.type">
+            <field name="name">Visagraph</field>
+        </record>
+
+        <record id="product_pricelist_saoa" model="product.pricelist">
+            <field name="name">SAOA</field>
+            <field name="currency_id" ref="base.ZAR"></field>
+        </record>
+        <record id="product_pricelist_ppn1" model="product.pricelist">
+            <field name="name">PPN1</field>
+            <field name="currency_id" ref="base.ZAR"></field>
+        </record>
+
+        <record id="clinical_test_auto" model="clinical.test">
+            <field name="name">Auto</field>
+        </record>
+        <record id="clinical_test_ret" model="clinical.test">
+            <field name="name">Ret</field>
+        </record>
+        <record id="clinical_test_subjective" model="clinical.test">
+            <field name="name">Subjective</field>
+        </record>
+
+        <record id="account.account_payment_term_immediate" model="account.payment.term">
+            <field name="name">Patient to Pay</field>
+            <field name="note">Payment terms: Patient to Pay</field>
+            <field name="line_ids"
+                eval="[(5, 0), (0, 0, {'value': 'balance', 'value_amount': 0.0, 'sequence': 500, 'days': 7, 'option': 'day_after_invoice_date'})]" />
+        </record>
+
+        <record id="account.account_payment_term_15days" model="account.payment.term">
+            <field name="name">Medical Aid to Pay</field>
+            <field name="note">Payment terms: Medical Aid to Pay</field>
+            <field name="line_ids"
+                eval="[(5, 0), (0, 0, {'value': 'balance', 'value_amount': 0.0, 'sequence': 500, 'days': 7, 'option': 'day_after_invoice_date'})]" />
+        </record>
+
+        <record id="wip_stock_location" model="stock.location">
+            <field name="name">WIP</field>
+            <field name="location_id" ref="stock.stock_location_locations_partner" />
+            <field name="usage">transit</field>
+
+        </record>
+        <record id="stage_queued" model="project.task.type">
+            <field name="name">Queued</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="stage_inprogress" model="project.task.type">
+            <field name="name">In Progress</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="stage_complete" model="project.task.type">
+            <field name="name">Complete</field>
+            <field name="sequence">18</field>
+        </record>
+        <record id="stage_customer_collection" model="project.task.type">
+            <field name="name">Awaiting Customer Collection</field>
+            <field name="sequence">15</field>
+        </record>
+        <record id="stage_workshop" model="project.task.type">
+            <field name="name">In Workshop</field>
+            <field name="sequence">16</field>
+        </record>
+        <record id="toms_company_jobs" model="project.project">
+            <field name="name">Company Jobs</field>
+            <field name="type_ids"
+                eval="[(4, ref('TOMS.stage_queued')),(4, ref('TOMS.stage_inprogress')), (4, ref('TOMS.stage_customer_collection')),(4, ref('TOMS.stage_workshop')),(4, ref('TOMS.stage_complete'))]" />
+        </record>
+
+        <record id="project.project_stage_data_1" model="project.task.type">
+            <field name="active">false</field>
+        </record>
+        <record id="project.project_stage_data_2" model="project.task.type">
+            <field name="active">false</field>
+        </record>
+        <record id="project.project_stage_data_0" model="project.task.type">
+            <field name="active">false</field>
+        </record>
+
+        <record id="job_physical_location_1" model="stock.location">
+            <field name="name">On Orders Shelf</field>
+        </record>
+        <record id="job_physical_location_2" model="stock.location">
+            <field name="name">In Workshop</field>
+        </record>
+        <record id="job_physical_location_3" model="stock.location">
+            <field name="name">Delays Shelf</field>
+        </record>
+        <record id="job_physical_location_4" model="stock.location">
+            <field name="name">Completed Shelf</field>
+        </record>
+        <record id="job_physical_location_5" model="stock.location">
+            <field name="name">Pending</field>
+        </record>
+
+        <record id="recall_sms_template" model="sms.template">
+            <field name="name">Recall SMS Template</field>
+            <field name="model_id" search="[('model', '=', 'res.partner')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hi ${object.first_name}
+You are due for an eye exam. Contact ${object.company_id.display_name} on ${object.company_id.phone} to make an appointment, or visit ${object.company_id.website}.</field>
+        </record>
+
+        <record id="project_task_sms_template_1" model="sms.template">
+            <field name="name">Job SMS In Awaiting Parts</field>
+            <field name="model_id" search="[('model', '=', 'project.task')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hi ${object.partner_id.first_name}
+Your job has been moved to an awaiting Parts state. Contact ${object.company_id.name} on ${object.company_id.phone} for more info.
+${object.company_id.website}</field>
+        </record>
+
+        <record id="project_task_sms_template_2" model="sms.template">
+            <field name="name">Job SMS In Progress</field>
+            <field name="model_id" search="[('model', '=', 'project.task')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hi ${object.partner_id.first_name}
+Your job has been moved to a in progress state. Contact ${object.company_id.name} on ${object.company_id.phone} for more info.
+${object.company_id.website}</field>
+        </record>
+
+        <record id="project_task_sms_template_3" model="sms.template">
+            <field name="name">Job SMS Customer Collection</field>
+            <field name="model_id" search="[('model', '=', 'project.task')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hi ${object.partner_id.first_name}
+Your job has been Completed. Contact ${object.company_id.name} on ${object.company_id.phone} for more info.
+${object.company_id.website}</field>
+        </record>
+
+        <record id="project_task_sms_template_4" model="sms.template">
+            <field name="name">Job SMS Feedback</field>
+            <field name="model_id" search="[('model', '=', 'project.task')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hi ${object.partner_id.first_name}
+
+We hope you are satisfied with your eyeware, if there are any problems please contact ${object.company_id.name} on ${object.company_id.phone}</field>
+        </record>
+
+
+        <record id="appointment_sms_template" model="sms.template">
+            <field name="name">Appointment SMS Template</field>
+            <field name="model_id" search="[('model', '=', 'calendar.event')]" />
+            <field name="from_mobile_verified_id" ref="sms_frame.sms_number_default" />
+            <field name="from_mobile">0000000000</field>
+            <field name="template_body">Hello ${object.customer_id.first_name}
+            This is reminder your appointment on ${object.start_datetime} with ${object.optometrist_id.display_name} at</field>
+        </record>
+
+        <record id="test_supplier" model="res.partner">
+            <field name="name">Test Supplier</field>
+            <field name="supplier">true</field>
+        </record>
+
+        <record id="meeting_subject_clens Check" model="meeting.subject">
+            <field name="name">C/Lens Check</field>
+        </record>
+
+        <record id="meeting_subject_clens_checkfit" model="meeting.subject">
+            <field name="name">C/Lens Check &amp; Fit</field>
+        </record>
+
+         <record id="meeting_subject_clens_exam" model="meeting.subject">
+            <field name="name">C/Lens Exam</field>
+        </record>
+
+        <record id="meeting_subject_clens_fit" model="meeting.subject">
+            <field name="name">C/Lens Fit</field>
+        </record>
+
+        <record id="meeting_subject_clens_purchases" model="meeting.subject">
+            <field name="name">C/Lens Purchases</field>
+        </record>
+
+        <record id="meeting_subject_clens_Screening" model="meeting.subject">
+            <field name="name">C/Lens Screening</field>
+        </record>
+
+        <record id="meeting_subject_colorimeter" model="meeting.subject">
+            <field name="name">Colorimeter</field>
+        </record>
+
+        <record id="meeting_subject_cycloplegic" model="meeting.subject">
+            <field name="name">Cycloplegic</field>
+        </record>
+
+        <record id="meeting_subject_doctors_script" model="meeting.subject">
+            <field name="name">Doctors Scrip</field>
+        </record>
+
+        <record id="meeting_subject_drivers_licenses_creening" model="meeting.subject">
+            <field name="name">Drivers License Screening</field>
+        </record>
+
+        <record id="meeting_subject_appointments" model="meeting.subject">
+            <field name="name">Ernests Appointments</field>
+        </record>
+
+        <record id="meeting_subject_spec_exam" model="meeting.subject">
+            <field name="name">Spec Exam</field>
+        </record>
+
+        <record id="meeting_subject_remake" model="meeting.subject">
+            <field name="name">Remake</field>
+        </record>
+
+        <record id="meeting_subject_Scleral_advanced" model="meeting.subject">
+            <field name="name">Scleral Lens Advanced</field>
+        </record>
+
+        <record id="meeting_subject_Scleral_Check" model="meeting.subject">
+            <field name="name">Scleral Lens Check</field>
+        </record>
+
+        <record id="meeting_subject_eye_exam" model="meeting.subject">
+            <field name="name">Eye Exam</field>
+        </record>
+
+        <record id="meeting_subject_repeat_scripts" model="meeting.subject">
+            <field name="name">Repeat Scripts</field>
+        </record>
+
+        <record id="meeting_subject_transfer" model="meeting.subject">
+            <field name="name">Transfer</field>
+        </record>
+
+        <record id="meeting_subject_visagraph" model="meeting.subject">
+            <field name="name">Visagraph</field>
+        </record>
+
+        <record id="group_admin_user" model="res.groups">
+           <field name="name">Admins</field>
+           <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+           <field name="comment"> admins user should be able to Edit and create meeting subject.</field>
+        </record>
+
+    </data>
+</odoo>

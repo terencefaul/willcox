@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="adjustment_lines_form_view" model="ir.ui.view">
+        <field name="name">Adjustment Lines</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="stock_name" string="Stock Name"/>
+                            <field name="inventory_id" string="Adjustment Reason"/>
+                            <field name="product_id"/>
+                            <field name="location_id"/>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Date"/>
+                            <field name="theoretical_qty" string="Orig Qty"/>
+                            <field name="product_qty"/>
+                            <field name="value" string="Unit Value"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="variance" string="Variance"/>
+                        <field name="total_value" string="Total Value"/>
+                        <field name="write_uid" string="By Who"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="adjustment_lines_tree_view" model="ir.ui.view">
+        <field name="name">Adjustment Lines</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" import="0" edit="0">
+                <field name="write_date" string="Date"/>
+                <field name="stock_name" string="Stock Name"/>
+                <field name="inventory_id" string="Adjustment Reason"/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="theoretical_qty" string="Orig Qty"/>
+                <field name="product_qty"/>
+                <field name="value" string="Unit Value"/>
+                <field name="variance" string="Variance"/>
+                <field name="total_value" string="Total Value"/>
+                <field name="state"/>
+                <field name="write_uid" string="By Who"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="adjustment_lines_pivot_view" model="ir.ui.view">
+        <field name="name">Adjustment Lines</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Adjustment Lines">
+                <field name="inventory_id" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="theoretical_qty" type="measure"/>
+                <field name="product_qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="adjustment_lines_action" model="ir.actions.act_window">
+        <field name="name">Inventory Lines</field>
+        <field name="res_model">stock.inventory.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <menuitem id="adjustment_lines_menu" sequence="3" name="Inventory Lines" action="adjustment_lines_action"
+              parent="stock.menu_stock_warehouse_mgmt"/>
+
+
+</odoo>

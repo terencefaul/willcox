@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="medical_aid_claims_tree_view" model="ir.ui.view">
+            <field name="name">Medical Aid Claims</field>
+            <field name="model">mediswitch.submit.claim</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="invoice_id"/>
+                    <field name="destination_code"/>
+                    <field name="user_reference"/>
+<!--                    <field name="generated_payload"/>-->
+                    <field name="response_payload_date"/>
+                    <field name="force"/>
+                    <field name="status"/>
+                    <field name="switch_reference"/>
+                    <field name="retry"/>
+                    <field name="response_payload" groups="base.group_no_one"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_aid_claims_result_tree_view" model="ir.ui.view">
+                <field name="name">Medical Aid Claims Result</field>
+                <field name="model">mediswitch.fetch.claim</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="origial_swref"/>
+                        <field name="claim_ref_id"/>
+                        <field name="status"/>
+                        <field name="feedback_type"/>
+                        <field name="feedback_version"/>
+                        <field name="morefiles"/>
+                        <field name="original_userref"/>
+                        <field name="original_dataset_id"/>
+                        <field name="filename"/>
+                        <field name="filedate"/>
+                        <field name="response_payload" groups="base.group_no_one"/>
+                    </tree>
+                </field>
+            </record>
+
+        <record id="medical_aid_claims_form_view" model="ir.ui.view">
+            <field name="name">Medical Aid Claims</field>
+            <field name="model">mediswitch.submit.claim</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="fetch_operations" string="Fetch Response" class="btn btn-primary" context="{'fetch_response':True}"></button>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" readonly="1"></field>
+                        </h1>
+                        <group>
+                            <group string="Claim Submission Detail">
+                                <field name="invoice_id"/>
+                                <field name="destination_code"/>
+                                <field name="user_reference"/>
+                                <field name="generated_payload" groups="base.group_no_one"/>
+                            </group>
+                            <group string="Claim Response Detail">
+                                <field name="response_payload_date"/>
+                                <field name="force"/>
+                                <field name="status"/>
+                                <field name="switch_reference"/>
+                                <field name="retry"/>
+                                <field name="response_error"/>
+                                <field name="response_payload" groups="base.group_no_one"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Claim Result">
+                                <field name="fetch_claim_id">
+                                    <tree editable="bottom" create="0" edit="0">
+                                        <field name="origial_swref"/>
+                                        <field name="claim_ref_id"/>
+                                        <field name="status"/>
+                                        <field name="feedback_type"/>
+                                        <field name="feedback_version"/>
+                                        <field name="morefiles"/>
+                                        <field name="original_userref"/>
+                                        <field name="original_dataset_id"/>
+                                        <field name="filename"/>
+                                        <field name="filedate"/>
+                                        <field name="response_payload" groups="base.group_no_one"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="medical_aid_claims_result_form_view" model="ir.ui.view">
+            <field name="name">Medical Aid Claim Result</field>
+            <field name="model">mediswitch.fetch.claim</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="origial_swref" readonly="1"></field>
+                        </h1>
+                        <group col="4">
+                            <field name="claim_ref_id"/>
+                            <field name="status"/>
+                            <field name="feedback_type"/>
+                            <field name="feedback_version"/>
+                            <field name="morefiles"/>
+                            <field name="original_userref"/>
+                            <field name="original_dataset_id"/>
+                            <field name="filename"/>
+                            <field name="filedate"/>
+                            <field name="response_payload" groups="base.group_no_one"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="global_fetch_claims_form_view_1" model="ir.ui.view">
+            <field name="name">Global Fetch Claims</field>
+            <field name="model">global.fetch.claim</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="fetch_response" string="Fetch Response" class="btn btn-primary"></button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Global Fetch Submission Details">
+                                <field name="txtype"/>
+                                <field name="swref"/>
+                                <field name="force"/>
+                                <field name="invoice_id" readonly="1"/>
+                            </group>
+                            <group string="Global Fetch Response Details">
+                                <field name="name" readonly="1"/>
+                                <field name="f_type" readonly="1"/>
+                                <field name="f_version" readonly="1"/>
+                                <field name="morefiles" readonly="1"/>
+                                <field name="originalswref" readonly="1"/>
+                                <field name="originaluserref" readonly="1"/>
+                                <field name="originaldatasetid" readonly="1"/>
+                                <field name="filename" readonly="1"/>
+                                <field name="filedate" readonly="1"/>
+                                <field name="responsepayload" readonly="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button special="cancel" string="Close" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medical_aid_claims" model="ir.actions.act_window">
+            <field name="name">Medical Aid Claims</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mediswitch.submit.claim</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="target">inline</field>-->
+        </record>
+
+        <record id="action_medical_aid_claims_result" model="ir.actions.act_window">
+            <field name="name">Medical Aid Claim Result</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mediswitch.fetch.claim</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="medical_aid_claim_menu" name="Medical Aid Claims"
+              action="mediswitch_integration.action_medical_aid_claims"
+              parent="TOMS.clinical_medical_aid_menu" sequence="2"/>
+
+        <menuitem id="medical_aid_claim_result_menu" name="Medical Aid Claims Results"
+              action="mediswitch_integration.action_medical_aid_claims_result"
+              parent="TOMS.clinical_medical_aid_menu" sequence="3"/>
+
+
+</odoo>

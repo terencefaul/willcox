@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="aspl_res_partner_company_form" model="ir.ui.view">
+            <field name="name">Contact</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval='100'/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="type" required="1" widget="radio" options="{'horizontal': true}"/>
+                        <field name="parent_id" invisible="1"/>
+                        <hr/>
+                        <group>
+                            <group attrs="{'invisible': [('type','=', 'contact')]}">
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <div class="o_address_format" name="div_address">
+                                        <field name="street" placeholder="Street..." class="o_address_street"/>
+                                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="name" string="Contact Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
+                                <field name="title" placeholder="e.g. Mr." attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                <field name="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="mobile" widget="phone"/>
+                                <field name="comment" placeholder="internal note..."/>
+                            </group>
+                        </group>
+                        <field name="supplier" invisible="True"/>
+                        <field name="customer" invisible="True"/>
+                        <field name="lang" invisible="True"/>
+                        <field name="image" invisible="True"/>
+                    </sheet>
+                    <footer>
+                        <button name="res_compnay_contact" type="object" string="save" class="btn btn-primary"/>
+                        <button string="cancel" special="cancel" class="btn btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--
+            make sure you update the below view manuallyat
+            views/res_partner.xml too......
+         -->
+        <record id="view_partner_dependent_contact_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Partners">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                        <div class="oe_title">
+                            <field name="is_company" invisible="1"/>
+                            <field name="commercial_partner_id" invisible="1"/>
+                            <field name="company_type" widget="radio"
+                                class="oe_edit_only"
+                                options="{'horizontal': true}" invisible="1"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <div class="o_row">
+                                <field name="parent_id" readonly="1"
+                                    placeholder="Company"
+                                    domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"
+                                    attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"/>
+                                <field name="company_name" attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"/>
+                                <button name="create_company" type="object" string="Create company" class="btn btn-sm oe_edit_only fa fa-external-link btn btn-link " attrs="{'invisible': ['|', '|', ('is_company','=', True), ('company_name', '=', ''), ('company_name', '=', False)]}"/>
+                            </div>
+                        </div>
+
+                        <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group string="Account Details">
+                            <field name="individual_internal_ref" readonly="1"/>
+                            <field name="patient_number" attrs="{'readonly':[('customer','=',True)]}"/>
+                            <field name="medical_aid_id" context="{'default_is_a_medical_aid':True,'default_customer':False,'from_customer':True}" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('is_a_medical_aid','=',True)]"/>
+                            <field name="option_id" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('medical_aid_id','=',medical_aid_id)]" context="{'default_medical_aid_id':medical_aid_id}"/>
+                            <field name="plan_option_id" attrs="{'readonly':[('parent_id','!=',False)]}" context="{'default_plan_id':option_id}"/>
+                            <field name="employer"/>
+                            <field name="occupation"/>
+                            <field name="is_key_member" invisible="1"/>
+                        </group>
+                        <group string="Personal Details">
+                            <field name="title"/>
+                            <field name="surname" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}"/>
+                            <field name="initials"/>
+                            <field name="first_name" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}"/>
+                            <field name="nick_name"/>
+                            <field name="id_number"/>
+                            <field name="is_dependent" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group>
+                            <field name="communication"/>
+                            <field name="file_no"/>
+                            <field name="old_system_no"/>
+                        </group>
+                        <group>
+                            <field name="birth_date"/>
+                            <field name="gender" widget="radio"/>
+                        </group>
+                    </group>
+
+                        <group>
+                            <group>
+                                <field name="type" invisible="1" attrs="{'invisible': [('parent_id','=', False)]}" groups="base.group_no_one"/>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <div class="oe_edit_only">
+                                        <button name="open_parent" type="object" string="(edit)" invisible="1" class="oe_link"/>
+                                    </div>
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="Province" options='{"no_open": True}' context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="zip" placeholder="Postal Code" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                                </div>
+                                <field name="vat" placeholder="e.g. BE0477472701" invisible="1"/>
+                                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                            </group>
+                            <group>
+                                <field name="function" placeholder="e.g. Sales Director"
+                                    attrs="{'invisible': [('is_company','=', True)]}"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="mobile" widget="phone"/>
+                                <field name="user_ids" invisible="1"/>
+                                <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])]}"/>
+                                <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                                <field name="title" options='{"no_open": True}'
+                                    attrs="{'invisible': [('is_company', '=', True)]}"/>
+                                <field name="lang"/>
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page name='internal_notes' string="Internal Notes">
+                                <field name="comment" placeholder="Internal note..."/>
+                            </page>
+                            <page name='sales_purchases' string="Sales &amp; Purchases">
+                                <group name="container_row_2">
+                                    <group string="Sale" name="sale">
+                                        <field name="customer"/>
+                                        <field name="is_a_medical_aid"/>
+                                        <field name="user_id"/>
+                                    </group>
+                                    <group string="Purchase" name="purchase">
+                                        <field name="supplier"/>
+                                        <field name="is_a_medical_aid_administrator"/>
+                                    </group>
+                                    <group string="Misc">
+                                        <field name="ref" readonly="1"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="industry_id" attrs="{'invisible': [('is_company', '=', False)]}" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Addresses" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                                <group>
+                                    <group string="Home Address">
+                                        <label for="home_street" string="Home Address"/>
+                                        <div class="o_address_format">
+                                            <field name="home_street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="home_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="home_city" placeholder="City" class="o_address_city"/>
+                                            <field name="home_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="home_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                            <field name="home_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                            <button type="object" name="copy_postal_address_to_home_add" string="COPY FROM POSTAL ADDRESS"></button>
+                                        </div>
+                                    </group>
+                                    <group string="Work Address">
+                                        <label for="work_street" string="Work Address"/>
+                                        <div class="o_address_format">
+                                            <field name="work_street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="work_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="work_city" placeholder="City" class="o_address_city"/>
+                                            <field name="work_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="work_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                            <field name="work_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                       <button type="object" name="save_child_contact" string="save" class="btn btn-primary"></button>
+                       <button type="object" special="cancel" class="btn btn-primary" string="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

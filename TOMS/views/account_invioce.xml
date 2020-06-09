@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_invoice_form" model="ir.ui.view">
+            <field name="name">Customer Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="team_id" position="after">
+                    <field name="pricelist_id"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="patient_id"/>
+                </field>
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='product_id']"
+                       position="before">
+                    <field name="final_rx_id" create="0"/>
+                    <field name="saoa_code_id" create="0"/>
+                    <field name="ppn1_code_id" create="0"/>
+                    <field name="icd_codes_ids" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='price_unit']"
+                       position="after">
+                    <field name="approved_amount" sum="Approved Amount Total"/>
+                    <field name="balance_amount" sum="Balance Amount Total"/>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='quantity']" position="attributes">
+                    <attribute name="string">Qty</attribute>
+                </xpath>
+
+                 <xpath expr="//form//sheet//notebook//page[1]//field[@name='price_subtotal']"
+                       position="after">
+                    <field name="claim_status"/>
+                </xpath>
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='price_unit']"
+                       position="attributes">
+                    <attribute name="sum">Price Total</attribute>
+                </xpath>
+                <xpath expr="//form//sheet//notebook//page[@name='other_info']/group/group"
+                       position="before">
+                    <group col="4">
+                        <field name="optometrist_id" required="1"/>
+                        <field name="dispenser_id" required="1"/>
+                        <field name="frontliner_id" required="1"/>
+                        <field name="exam_date"/>
+                         <field name="refund_reason_id"/>
+                    </group>
+                </xpath>
+                <xpath expr="//form//sheet//notebook//page[1]//group//field[@name='amount_total']"
+                       position="after">
+                    <field name="approved_amount" class="oe_subtotal_footer_separator"></field>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="inherit_view_account_invoice_refund" model="ir.ui.view">
+            <field name="name">account.invoice.refund</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="refund_reason_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="refund_reason_tree_view" model="ir.ui.view">
+            <field name="name">Refund Reason</field>
+            <field name="model">account.invoice.refund.reason</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refund_reason_form_view" model="ir.ui.view">
+            <field name="name">Refund Reason</field>
+            <field name="model">account.invoice.refund.reason</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Name/Description" required="1"/>
+                        </h1>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_invoice_line_form_124">
+            <field name="name">account.invoice.line.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//field[@name='price_unit']" position="after">
+                    <field name="balance_amount"/>
+                    <field name="claim_status"/>
+                </xpath>
+                 <xpath expr="//form//field[@name='invoice_line_tax_ids']" position="after">
+                    <field name="approved_amount"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="refund_reason_action" model="ir.actions.act_window">
+            <field name="name">Refund Reason</field>
+            <field name="res_model">account.invoice.refund.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="refund_reason_action_menu" name="Refund Reason" action="refund_reason_action"
+                  parent="account.menu_finance_configuration"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sequence_medical_aid_claims" model="ir.sequence">
+            <field name="name">Medical Aid Claims</field>
+            <field name="code">claim_sequence</field>
+            <field name="prefix">CLAIM-</field>
+            <field name="padding">6</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="response_error_wizard" model="ir.ui.view">
+            <field name="name">response.error.wizard.form</field>
+            <field name="model">response.error.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Response Wizard">
+                    <group>
+                        <field name="name" readonly="1"></field>
+                        <field name="response_error" readonly="1"></field>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="Medical_aid" readonly="1"></field>
+                            <field name="practise_name" readonly="1"/>
+                            <field name="practise_number" readonly="1"/>
+                        </group>
+                         <group>
+                            <field name="patient_name" readonly="1"/>
+                            <field name="patient_dob" readonly="1"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="account_no" readonly="1"/>
+                            <field name="member_no" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="claim_status_lines_ids" readonly="1">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit" sum="Price"/>
+                                    <field name="approved_amount" sum="Total Approved Amount"/>
+                                    <field name="balance_amount" sum="Total Balance Amount"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Ok" class="btn btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="response_reversal_wizard" model="ir.ui.view">
+            <field name="name">response.reversal.wizard.form</field>
+            <field name="model">response.reversal.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Response Wizard">
+                    <group>
+                        <field name="name" readonly="1"></field>
+                        <field name="response_error" readonly="1"></field>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="Medical_aid" readonly="1"></field>
+                            <field name="practise_name" readonly="1"/>
+                            <field name="practise_number" readonly="1"/>
+                        </group>
+                         <group>
+                            <field name="patient_name" readonly="1"/>
+                            <field name="patient_dob" readonly="1"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="account_no" readonly="1"/>
+                            <field name="member_no" readonly="1"/>
+                        </group>
+                    </group>
+<!--                    <notebook>-->
+<!--                        <page string="Lines">-->
+<!--                            <field name="claim_status_reversal_lines_ids" readonly="1">-->
+<!--                                <tree>-->
+<!--                                    <field name="product_id"/>-->
+<!--                                    <field name="quantity"/>-->
+<!--                                    <field name="price_unit" sum="Price"/>-->
+<!--                                    <field name="tax_ids" widget="many2many_tags"/>-->
+<!--                                    <field name="price_subtotal"/>-->
+<!--                                    <field name="status"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+                    <footer>
+                        <button string="Ok" class="btn btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

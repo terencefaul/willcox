@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <template id="report_productlabel_shipment">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <t t-foreach="o.move_lines" t-as="product">
+                            <t t-foreach="int(product.quantity_done)" t-as="each_product">
+                                <table style="border-spacing:0;margin-bottom:0;height:122px;">
+                                    <tbody>
+                                        <tr style="width: 3in;">
+                                            <td style="text-align: center;padding-top:12px;hegit:14mm;width:75mm">
+                                                <img t-if="product.product_id.barcode and len(product.product_id.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.product_id.barcode, 600, 150)" style="width:50%;height:20%;"/>
+                                                <img t-elif="product.product_id.barcode and len(product.product_id.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', product.product_id.barcode, 600, 150)" style="width:50%;height:20%;"/>
+                                                <img t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', product.product_id.barcode, 600, 150)" style="width:50%;height:20%;"/>
+                                                <p t-field="product.product_id.barcode"/>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <h4>
+                                                    <strong t-field="product.product_id.company_id.currency_id.symbol"/>
+                                                    <strong t-field="product.product_id.list_price"/>
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="page-break-before:always;"> </p>
+                            </t>
+                        </t>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+    </data>
+</odoo>

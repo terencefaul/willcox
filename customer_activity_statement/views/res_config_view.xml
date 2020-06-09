@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_res_config_settings_form_view_activity_statement" model="ir.ui.view">
+        <field name="name">res.config.settings.activity.statement.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='account_ocr_settings']" position="after">
+                <h2>Activity Statement Scheduler Settings</h2>
+
+                <div class="row mt16 o_settings_container" id="recommended_apps" groups="account.group_account_user">
+                    <div class="col-12 col-lg-6 o_setting_box" id="asset_types" title="This allows you to manage the assets owned by a company or a person. It keeps track of the depreciation occurred on those assets, and creates account move for those depreciation lines.">
+                        <div class="o_setting_left_pane">
+                            <field name="automatic_statement" widget="upgrade_boolean"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="automatic_statement"/>
+                            <div class="text-muted">
+                                Activity Statement Scheduler will send Statement.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('automatic_statement', '=', False)]}">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="cron_next_call_date" string="Cron Next Call Date"/>
+                            <div class="text-muted">
+                                The Statement will be sent every month to Partner on Cron Next Call Date.
+                            </div>
+                            <div class="row">
+                                <label string="Cron Next Call Date" for="cron_next_call_date" class="col-md-5"/>
+                                <field name="cron_next_call_date"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="send_to_options"/>
+                            <div class="mt16">
+                                <field name="send_to_options" class="o_light_label mt16" widget="radio"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                         <div class="o_setting_right_pane">
+                            <label for="statement_period" string="Default Statement Period"/>
+                            <div class="text-muted">
+                                <br/>
+                            </div>
+                            <div class="row">
+                                <label string="Statement Period" for="statement_period" class="col-md-5"/>
+                                <field name="statement_period"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                         <div class="o_setting_right_pane">
+                            <div class="text-muted">
+
+                            </div>
+                            <div class="row">
+                                <label string="Mode" for="mode" class="col-md-5"/>
+                                <field name="mode"/>
+                            </div>
+                             <div class="row">
+                                <label string="Test Email Address" for="test_email_address" class="col-md-5"/>
+                                <field name="test_email_address"/>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

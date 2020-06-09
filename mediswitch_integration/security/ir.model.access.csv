@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mediswitch_submit_claim,access_mediswitch_submit_claim,mediswitch_integration.model_mediswitch_submit_claim,base.group_user,1,1,1,1
+access_mediswitch_fetch_claim,access_mediswitch_fetch_claim,mediswitch_integration.model_mediswitch_fetch_claim,base.group_user,1,1,1,1
+access_claim_status_lines,access_claim_status_lines,model_claim_status_lines,base.group_user,1,1,1,1
+access_response_error_wizard,access_response_error_wizard,model_response_error_wizard,base.group_user,1,1,1,1
+access_response_reversal_wizard,access_response_reversal_wizard,mediswitch_integration.model_response_reversal_wizard,base.group_user,1,1,1,1
+access_mark_msv,access_mark_msv,model_mark_msv,base.group_user,1,1,1,1
+access_bulk_msv,access_bulk_msv,model_bulk_msv,base.group_user,1,1,1,1
+access_msv_response,access_msv_response,model_msv_response,base.group_user,1,1,1,1
+access_remove_mark_msv,access_remove_mark_msv,model_remove_mark_msv,base.group_user,1,1,1,1
+access_msv_members,access_msv_members,model_msv_members,base.group_user,1,1,1,1
+access_id_msv,accessid_msv,model_id_msv,base.group_user,1,1,1,1
+access_surname_dob_msv,access_surname_dob_msv,model_surname_dob_msv,base.group_user,1,1,1,1
+access_global_fetch_claim,access_global_fetch_claim,model_global_fetch_claim,base.group_user,1,1,1,1

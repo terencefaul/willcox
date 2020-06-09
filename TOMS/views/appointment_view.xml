@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="appointment_resource_view_id" model="ir.actions.client">
+            <field name="name">Appointment Roster View</field>
+            <field name="tag">tag_appointment_resource_view</field>
+        </record>
+
+        <menuitem id="menu_roster_view_appointment" action="TOMS.appointment_resource_view_id"
+                  name="Appointment Roster View" parent="TOMS.main_menu_clinical_app"/>
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="custom_tray_label_report"
+                model="project.task"
+                string="Tray Label"
+                name="TOMS.report_tray_label"
+                file="TOMS.report_tray_label"
+                report_type="qweb-pdf"
+                paperformat="paperformat_humint_tray"
+                print_report_name="'Tray Labels - %s' % (object.job_number)" />
+
+        <template id="report_tray_label">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div>
+                        <img src='/web/binary/company_logo' class="float-left" style="max-height: 65px; margin-top:20px;"
+                             alt="Logo"/>
+                        <br></br>
+                    </div>
+<!--                    <t t-call="web.external_layout">-->
+                        <div class="page" style="font-family:Arial">
+                            <br></br>
+                            <table class="table table-bordered col-auto">
+                                <tr>
+                                    <td style="width:110px">
+                                        <p>
+                                           <strong>Name and Surname</strong>
+                                        </p>
+                                    </td>
+                                    <td style="width:110px">
+                                       <span t-field="doc.partner_id"/>
+                                    </td>
+                                    <td style="width:110px">
+                                        <strong>
+                                            <p>Type of Lenses</p>
+                                        </strong>
+                                    </td>
+                                    <td style="width:110px">
+                                        <span t-field="doc.job_type"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <p>Date of Appointment</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.exam_date"/>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <p>Contact Number</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.mobile"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <p>Date Ordered</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.create_date" t-options="{'widget':'date'}"/>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                           <p>Expected Date</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.date_deadline" t-options="{'widget':'date'}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <p>Tray Number</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.tray"/>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <p>Physical Location</p>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.physical_location"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+<!--                    </t>-->
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,141 @@
+id,code,group_id,name,user_type_id/id,reconcile,chart_template_id/id
+100000,100000,,Stock Delivered Control Account,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100010,100010,Inventory,Inventory - Frames,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100020,100020,Inventory,Inventory - Sunglasses,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100030,100030,Inventory,Inventory - Spectacle Lenses,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100040,100040,Inventory,Inventory - Contact lenses,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100050,100050,Inventory,Inventory - Accesories,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100060,100060,Inventory,Inventory - Add ons,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100070,100070,Inventory,Inventory - Spares,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100080,100080,Inventory,Inventory - Other,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100090,100090,Inventory,Inventory - Prosthetics,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100100,100100,Inventory,Inventory - Low Vision,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+100110,100110,Inventory,Inventory - Package Options,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+110010,110010,Debtors,Debtors Control Account,account.data_account_type_receivable,TRUE,default_chart_template_humint
+110020,110020,Sundry Debtors,Sundry Debtors,account.data_account_type_receivable,TRUE,default_chart_template_humint
+124010,124010,Sundry Debtors,Credit Card Merchant Account,account.data_account_type_liquidity,FALSE,default_chart_template_humint
+126010,126010,Sundry Debtors,Cash In Hand,account.data_account_type_liquidity,FALSE,default_chart_template_humint
+130010,130010,Current Assets,Prepayments,account.data_account_type_prepayments,FALSE,default_chart_template_humint
+140010,140010,Fixed Assets,Computer Hardware,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140020,140020,Fixed Assets,Computer Software,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140030,140030,Fixed Assets,Furniture and Fittings,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140040,140040,Fixed Assets,Optical Equipment ,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140050,140050,Fixed Assets,Signage,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140060,140060,Fixed Assets,Fixed Asset 6 - Accumulated Depreciation,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+140070,140070,Fixed Assets,Fixed Asset 7 - Accumulated Depreciation,account.data_account_type_fixed_assets,FALSE,default_chart_template_humint
+150010,150010,Current Assets,Stock Received Control Account,account.data_account_type_current_assets,FALSE,default_chart_template_humint
+160010,160010,Accumulated Depreciation,Computer Hardware - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160020,160020,Accumulated Depreciation,Computer Software - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160030,160030,Accumulated Depreciation,Furniture and Fittings - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160040,160040,Accumulated Depreciation,Optical Equipment - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160050,160050,Accumulated Depreciation,Signage - Accumulared Dereciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160060,160060,Accumulated Depreciation,Fixed Asset 6 - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+160070,160070,Accumulated Depreciation,Fixed Asset 7 - Accumulated Depreciation,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+200000,200000,Current Assets,Stock Received Control Account,account.data_account_type_non_current_liabilities,FALSE,default_chart_template_humint
+200020,200020,Sundry Creditors,Sundry Creditors,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200030,200030,Sundry Creditors,Other Creditors,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200040,200040,Sundry Creditors,Accruals,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200050,200050,Sundry Creditors,Bad debt provision,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200060,200060,Value Added Tax,Sales Tax Control Account,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200070,200070,Value Added Tax,Manual Adjustments & VAT,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200080,200080,,Loans,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200090,200090,,Hire Purchase,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+200100,200100,,Mortgages,account.data_account_type_current_liabilities,FALSE,default_chart_template_humint
+210010,210010,,Company Credit Card,account.data_account_type_credit_card,FALSE,default_chart_template_humint
+220010,220010,Creditors,Creditors Control Account,account.data_account_type_payable,TRUE,default_chart_template_humint
+220020,220020,,SARS - VAT Account,account.data_account_type_payable,TRUE,default_chart_template_humint
+220030,220030,,P.A.Y.E. & UIF,account.data_account_type_payable,TRUE,default_chart_template_humint
+220040,220040,,Net Wages,account.data_account_type_payable,TRUE,default_chart_template_humint
+220050,220050,,Pension Fund,account.data_account_type_payable,TRUE,default_chart_template_humint
+220060,220060,,Corporation Tax,account.data_account_type_payable,TRUE,default_chart_template_humint
+300010,300010,,Called up share capital,account.data_account_type_equity,FALSE,default_chart_template_humint
+300020,300020,,Share premium account,account.data_account_type_equity,FALSE,default_chart_template_humint
+300030,300030,,Revaluation reserve,account.data_account_type_equity,FALSE,default_chart_template_humint
+300040,300040,,Other reserves,account.data_account_type_equity,FALSE,default_chart_template_humint
+300050,300050,,Capital,account.data_account_type_equity,FALSE,default_chart_template_humint
+300060,300060,,Dividends,account.data_account_type_equity,FALSE,default_chart_template_humint
+300070,300070,,Drawings,account.data_account_type_equity,FALSE,default_chart_template_humint
+400010,400010,,Undistributed Profits/Losses,account.data_unaffected_earnings,FALSE,default_chart_template_humint
+500010,500010,Income,Sales - Frames,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500020,500020,Income,Sales - Sunglasses,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500030,500030,Income,Sales - Spectacle lenses,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500040,500040,Income,Sales - Contact lenses,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500050,500050,Income,Sales - Accesories,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500060,500060,Income,Sales - Add ons,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500070,500070,Income,Sales - Spares,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500080,500080,Income,Sales - Other,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500090,500090,Income,Sales - Fees,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500100,500100,Income,Sales - Prosthetics,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500110,500110,Income,Sales - Low Vision,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500120,500120,Income,Sales - Package Options,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500200,500200,Other Income,Bank Interest received,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500210,500210,Other Income,Investment Interest received,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500220,500220,Other Income,Profits/Losses on disposals of assets,account.data_account_type_revenue,FALSE,default_chart_template_humint
+500230,500230,Other Income,Rental Income,account.data_account_type_revenue,FALSE,default_chart_template_humint
+510010,510010,Other Income,Other Income,account.data_account_type_other_income,FALSE,default_chart_template_humint
+600010,600010,Cost of Sales,Cost of Sales - Frames,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600020,600020,Cost of Sales,Cost of Sales - Sunglasses,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600030,600030,Cost of Sales,Cost of Sales - Spectacle lenses,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600040,600040,Cost of Sales,Cost of Sales - Contact lenses,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600050,600050,Cost of Sales,Cost of Sales - Accesories,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600060,600060,Cost of Sales,Cost of Sales - Add ons,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600070,600070,Cost of Sales,Cost of Sales - Spares,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600080,600080,Cost of Sales,Cost of Sales - Other,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600090,600090,Cost of Sales,Cost of Sales - Fees,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600100,600100,Cost of Sales,Cost of Sales - Prosthetics,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600110,600110,Cost of Sales,Cost of Sales - Low Vision,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+600120,600120,Cost of Sales,Cost of Sales - Package Options,account.data_account_type_direct_costs,FALSE,default_chart_template_humint
+610010,610010,Other Expenses,Marketing,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610020,610020,Other Expenses,Exhibitions and events,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610030,610030,Other Expenses,PR,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610040,610040,Other Expenses,Distribution vehicles,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610050,610050,Other Expenses,Distribution salaries and wages,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610060,610060,Other Expenses,Shipping,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610070,610070,Other Expenses,Directors pension,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610080,610080,Other Expenses,Directors remuneration,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610090,610090,Salaries,Gross Salaries,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610100,610100,Salaries,Employers SDL & UIF,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610110,610110,Other Expenses,Subcontractors payments,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610120,610120,Rent Expense,Rent Expence,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610121,610121,Rent Expense,Rent Levies,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610130,610130,Other Expenses,Light / heat and power,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610140,610140,Other Expenses,Repairs and maintenance,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610150,610150,Other Expenses,Car hire,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610160,610160,Other Expenses,Car fuel,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610170,610170,Other Expenses,Car maintenance,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610180,610180,Other Expenses,Telephone,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610190,610190,Other Expenses,Internet & hosting,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610200,610200,Other Expenses,Mobiles,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610210,610210,Other Expenses,Stationery,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610220,610220,Other Expenses,Office consumables,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610230,610230,Other Expenses,Postage and Carriage,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610240,610240,Other Expenses,Books,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610250,610250,Other Expenses,Network costs,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610260,610260,Other Expenses,Software expenses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610270,610270,Other Expenses,Other computer costs,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610280,610280,Other Expenses,Recruitment fees,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610290,610290,Other Expenses,Other admin expenses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610300,610300,Other Expenses,Accounting,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610310,610310,Other Expenses,Auditing,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610320,610320,Other Expenses,Consultancy,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610330,610330,Other Expenses,Legal and professional charges,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610340,610340,Other Expenses,Exchange gains/losses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610350,610350,Other Expenses,Other sundry expenses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610360,610360,Other Expenses,Bad debts,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610370,610370,Finance Cost,Interest paid,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610380,610380,Other Expenses,Bank Charges,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610390,610390,Other Expenses,Donations,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610400,610400,Other Expenses,Entertaining,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610410,610410,Other Expenses,Insurance,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610420,610420,Other Expenses,Travel and subsistence,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610430,610430,Other Expenses,Corporation tax expense,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610440,610440,Other Expenses,Foreign Exchange Gains/Losses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610450,610450,Other Expenses,Price Differences Control Account,account.data_account_type_expenses,FALSE,default_chart_template_humint
+610460,610460,Other Expenses,Cash Register Gains/Losses,account.data_account_type_expenses,FALSE,default_chart_template_humint
+620010,620010,Depreciation,Depreciation - Computer Hardware,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620020,620020,Depreciation,Depreciation - Computer Software,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620030,620030,Depreciation,Depreciation - Furniture and Fittings,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620040,620040,Depreciation,Depreciation - Optical Equipment,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620050,620050,Depreciation,Depreciation - Sinage,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620060,620060,Depreciation,Depreciation - Fixed Asset 6,account.data_account_type_depreciation,FALSE,default_chart_template_humint
+620070,620070,Depreciation,Depreciation - Fixed Asset 7,account.data_account_type_depreciation,FALSE,default_chart_template_humint

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sms_partner_more_menu_server_action" model="ir.actions.server">
+            <field name="name">SMS Partner</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="binding_model_id" ref="base.model_res_partner" />
+            <field name="code">action = record.sms_action()</field>
+        </record>
+
+        <!-- <record id="sms_partner_more_menu_client_action" model="ir.values">
+        <field name="key2" eval="'client_action_multi'" />
+        <field name="model" eval="'res.partner'"/>
+        <field name="name">SMS Partner</field>
+        <field name="value" eval="'ir.actions.server,%d'%sms_partner_more_menu_server_action"/>
+        </record> -->
+
+        <record id="view_partner_form_inherit_sms_frame" model="ir.ui.view">
+            <field name="name">E.164 mobile placeholder</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="mobile" position="replace">
+                    <field name="mobile" placeholder="E.164 format e.g. +61 427 671 760"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sms_inherit_sms_partner" model="ir.ui.view">
+            <field name="name">Res Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sms.partner_form_send_sms_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(sms.send_sms_form_action)d']" position="replace">
+                    <button
+                        type="object"
+                        name="action_compose_sms_phone"
+                        class="btn-sm btn-link mb4 fa fa-envelope-o"
+                        aria-label="Send SMS"
+                        title="Send SMS"
+                        attrs="{'invisible':[('phone', '=', False)]}"
+                        context="{'field_name': 'phone'}"
+                    />
+                </xpath>
+                <xpath expr="//button[@name='%(sms.send_sms_form_action)d']" position="replace">
+                    <button
+                        type="object"
+                        name="action_compose_sms_mobile"
+                        class="btn-sm btn-link mb4 fa fa-envelope-o"
+                        aria-label="Send SMS"
+                        title="Send SMS"
+                        attrs="{'invisible':[('mobile', '=', False)]}"
+                        context="{'field_name': 'mobile'}"
+                        />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

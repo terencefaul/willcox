@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="calendar_event_view_pivot_toms" model="ir.ui.view">
+            <field name="name">calendar.event.pivot</field>
+            <field name="model">calendar.event</field>
+            <field name="arch" type="xml">
+                <pivot string="Appointments" display_quantity="true">
+                    <field name="start" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="inherit_calender_event_search_view" model="ir.ui.view">
+            <field name="name">Search Appointments</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='privacy']" position="after">
+                    <separator/>
+                    <filter name="today_appointment" string="Today’s Appointments"
+                            domain="[('start','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('start','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                    <filter name="scheduled_today" string="Scheduled Today"
+                            domain="[('start','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('start','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="aspl_action_calendar_event" model="ir.actions.act_window">
+            <field name="name">Appointments</field>
+            <field name="res_model">calendar.event</field>
+            <field name="view_mode">tree,calendar,form,pivot</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="calendar.view_calendar_event_tree"/>
+            <field name="context">{'search_default_today_appointment':1}</field>
+        </record>
+
+        <record id="inherit_calendar_event_list_view" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids" position="replace"/>
+                <field name="location" position="replace"/>
+                <field name="name" position="replace"/>
+                <field name="start" position="before">
+                    <field name="meeting_subject_id"/>
+                </field>
+                <field name="stop" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <xpath expr="//field[@name='start']" position="after">
+                    <field name="customer_id" string="Patient"/>
+                    <field name="optometrist_id"/>
+                    <field name="description" />
+                    <field name="stop" invisible="1"/>
+                    <field name="mobile"/>
+                    <field name="medical_aid_id" string="Medical Aid"/>
+                    <field name="key_member" string="Membership Number"/>
+                    <field name="option_id" invisible="1"/>
+                    <field name="plan_option_id" invisible="1"/>
+                    <field name="present_for_appointment" widget="boolean_toggle"    readonly="0"/>
+                    <field name="exam_count" invisible="1"/>
+                </xpath>
+                <field name="duration" position="after">
+                    <field name="msv_later" widget="boolean_toggle"></field>
+                    <field name="msv_status"></field>
+                    <button name="start_examination" type="object" string="Start Examination"
+                            attrs="{'invisible':['|',('exam_count','!=',0),('present_for_appointment','!=',True)]}"></button>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="inherit_view_calendar_event_calendar" model="ir.ui.view">
+            <field name="name">Calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <xpath expr="//calendar" position="attributes">
+                    <attribute name="mode">day</attribute>
+                </xpath>
+                <field name="name" position="replace"/>
+                <field name="partner_ids" position="before">
+                    <field name="calendar_display_name" class="custome"/>
+                    <field name="meeting_subject_id" string="Meeting Subject"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="inherit_calender_event_form" model="ir.ui.view">
+            <field name="name">Calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button name="mark_present" string="Mark Present"
+                                attrs="{'invisible':['|',('present_for_appointment','=',True),('state','=','cancel')]}"
+                                type="object" class="btn-primary"/>
+                        <button name="send_sms_from_appointment" attrs="{'invisible':[('state','=','cancel')]}"
+                                string="Send SMS" type="object"/>
+                        <button name="cancel_appointment" string="Cancel Appointment"
+                                attrs="{'invisible':[('state','=','cancel')]}" type="object"/>
+                        <button name="submit_msv" string="Submit Msv" type="object"/>
+                        <button name="id_msv" string="ID Msv"  type="object"/>
+                        <button name="surname_dob_msv" string="SURNAME DOB MSV" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </xpath>
+                <xpath expr="//form//sheet//div//h1" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form//sheet//div//div" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form//sheet//div//div" position="after">
+                    <div class="oe_edit_only">
+                        <label for="meeting_subject_id"/>
+                    </div>
+                    <h1>
+                        <field name="meeting_subject_id" placeholder="e.g. Business Lunch"
+                               options="{'no_create': True}"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//field[@name='partner_ids']" position="replace">
+                    <attribute name="invisible"></attribute>
+                </xpath>
+                <xpath expr="//form//sheet//div[1]" position="after">
+                    <group>
+                        <group>
+                            <field name="calendar_display_name" invisible="1"/>
+                            <field name="customer_id" string="Patient" domain="[('customer','=',True)]"/>
+                            <field name="home_phone"/>
+                            <field name="mobile"/>
+                            <field name="work_phone"/>
+                            <field name="key_member_id" readonly="1"/>
+                            <field name="reminder_sms"/>
+                            <field name="telesales"/>
+                        </group>
+                        <group>
+                            <field name="optometrist_id" required="1"/>
+                            <field name="frontliner_id"/>
+                            <field name="medical_aid_id" domain="[('is_a_medical_aid','=',True)]"
+                                   context="{'default_is_a_medical_aid':True,'default_customer':False}"/>
+                            <field name="option_id"/>
+                            <field name="plan_option_id"/>
+                            <field name="key_member"/>
+                            <field name="check_details"/>
+                            <field name="recall"/>
+                            <field name="present_for_appointment" readonly="1"/>
+                            <field name="lost_reason_id"/>
+                        </group>
+                        <div style="font-size: 1.625rem;margin: 5px 0;">MSV Details</div>
+                        <div style="display:flex;">
+                             <label for="msv_later" name="MSV Later" ></label>
+                            <div style="margin-left:86px;"><field name="msv_later" widget="boolean_toggle" string="MSV Later"></field></div>
+                        </div>
+                        <div style="display:flex;">
+                             <label for="msv_status" name="MSV Status" ></label>
+                            <div style="margin-left:86px;"><field name="msv_status" string="MSV Status"></field></div>
+                        </div>
+                        <div style="display:flex;">
+                            <label for="msv_latest_date" name="Last MSV Date" string="Last MSV Date" style="width: 246px;"></label>
+                            <div style="margin-left: -100px;"><field name="msv_latest_date" readonly="1"/></div>
+                        </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='page_misc']" position="after">
+                    <sheet string="Medical Aid Confrimations">
+                        <field name="patient" context="{'default_patient':customer_id}"/>
+                    </sheet>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_celender_event_inherited" model="ir.ui.view">
+            <field name="name">calendar.event</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="TOMS.inherit_calender_event_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('TOMS.group_admin_user')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='meeting_subject_id']" position="attributes">
+                    <attribute name="options">{'no_create':False}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="pms_view_task_calendar" model="ir.ui.view">
+            <field name="name">Appiontment</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <calendar position="attributes">
+                    <attribute name="quick_add">false</attribute>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="calendar.action_calendar_event" model="ir.actions.act_window">
+            <field name="name">Meetings</field>
+            <field name="res_model">calendar.event</field>
+            <field name="view_mode">calendar,tree,form,pivot</field>
+            <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Schedule a new meeting
+                </p>
+                <p>
+                    The calendar is shared between employees and fully integrated with
+                    other applications such as the employee leaves or the business
+                    opportunities.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

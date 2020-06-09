@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report id="custom_report_product_label"
+                string="Barcode"
+                model="product.template"
+                report_type="qweb-pdf"
+                name="TOMS.report_productlabel_custom"
+                file="TOMS.report_productlabel_custom"
+                print_report_name="'Products Labels - %s' % (object.name)"
+                paperformat="paperformat_humint_barcode_label"
+            />
+
+        <report id="custom_report_product_label_shipment"
+                string="Custom Label"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="TOMS.report_productlabel_shipment"
+                file="TOMS.report_productlabel_shipment"
+                print_report_name="'Products Labels - %s' % (object.name)" 
+            />
+
+    </data>
+</odoo>

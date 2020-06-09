@@ -1,0 +1,13 @@
+.o_fields{
+  margin-left: 60px;
+  margin-top: -14px;
+  font-size: .85em;
+  padding-left: 3px;
+}
+.fc-time-grid-event
+{
+    height : 50px;
+}
+.fc-widget-content{
+    height: 50px !important;
+    }

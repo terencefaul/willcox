@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="mini_income_statement" model="account.financial.html.report">
+        <field name="name">Mini Income Statement</field>
+        <field name='parent_id' ref='l10n_za.account_reports_za_statements_menu'/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name="tax_report" eval="0"/>
+    </record>
+
+    <record id="mini_income_statement_income" model="account.financial.html.report.line">
+        <field name="name">Income</field>
+        <field name="code">INCOME</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0"/>
+        <field name="formulas"></field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="financial_report_id" ref="mini_income_statement"/>
+    </record>
+
+    <record id="mini_income_statement_sales" model="account.financial.html.report.line">
+        <field name="name">Sales</field>
+        <field name="code">SALES</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Income')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_income"/>
+    </record>
+
+    <record id="mini_income_statement_cos" model="account.financial.html.report.line">
+        <field name="name">Cost of Sales</field>
+        <field name="code">CSL</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Cost of Sales')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_income"/>
+    </record>
+
+    <record id="mini_income_statement_gp" model="account.financial.html.report.line">
+        <field name="name">Gross Profit</field>
+        <field name="code">GP</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="1"/>
+        <field name="formulas">balance = SALES.balance - CSL.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_income"/>
+    </record>
+
+    <record id="mini_income_statement_gp_%" model="account.financial.html.report.line">
+        <field name="name">Gross Profit %</field>
+        <field name="code">GPP</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="1"/>
+        <field name="formulas">balance = GP.balance / SALES.balance</field>
+        <field name="figure_type">percents</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_income"/>
+    </record>
+
+        <record id="mini_income_statement_expenses" model="account.financial.html.report.line">
+        <field name="name">Expenses</field>
+        <field name="code">EXPENSES</field>
+        <field name="sequence" eval="30"/>
+        <field name="level" eval="0"/>
+        <field name="formulas">balance = SAL.balance + RENT.balance + OTHEXP.balance + FINCOST.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="financial_report_id" ref="mini_income_statement"/>
+    </record>
+
+    <record id="mini_income_statement_salaries" model="account.financial.html.report.line">
+        <field name="name">Salaries</field>
+        <field name="code">SAL</field>
+        <field name="sequence" eval="31"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Salaries')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_salaried_%" model="account.financial.html.report.line">
+        <field name="name">Salaries %</field>
+        <field name="code">SAL%</field>
+        <field name="sequence" eval="32"/>
+        <field name="level" eval="3"/>
+        <field name="figure_type">percents</field>
+        <field name="formulas">balance = SAL.balance / SALES.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_rent" model="account.financial.html.report.line">
+        <field name="name">Rent Expense</field>
+        <field name="code">RENT</field>
+        <field name="sequence" eval="33"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Rent Expense')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+    <record id="mini_income_statement_rent_expense_%" model="account.financial.html.report.line">
+        <field name="name">Rent Expences %</field>
+        <field name="code">RENT%</field>
+        <field name="sequence" eval="34"/>
+        <field name="level" eval="3"/>
+        <field name="figure_type">percents</field>
+        <field name="formulas">balance = RENT.balance / SALES.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+    <record id="mini_income_statement_finance" model="account.financial.html.report.line">
+        <field name="name">Finance Costs</field>
+        <field name="code">FINCOST</field>
+        <field name="sequence" eval="35"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Finance Cost')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_finance_%" model="account.financial.html.report.line">
+        <field name="name">Finance %</field>
+        <field name="code">FIN%</field>
+        <field name="sequence" eval="36"/>
+        <field name="level" eval="3"/>
+        <field name="figure_type">percents</field>
+        <field name="formulas">balance = FINCOST.balance / SALES.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_other_expense" model="account.financial.html.report.line">
+        <field name="name">Other Expense</field>
+        <field name="code">OTHEXP</field>
+        <field name="sequence" eval="37"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.group_id','=','Other Expenses')]"/>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_other_expenses_%" model="account.financial.html.report.line">
+        <field name="name">Other Expences %</field>
+        <field name="code">OTHER%</field>
+        <field name="sequence" eval="38"/>
+        <field name="level" eval="3"/>
+        <field name="figure_type">percents</field>
+        <field name="formulas">balance = OTHEXP.balance / SALES.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="parent_id" ref="mini_income_statement_expenses"/>
+    </record>
+
+    <record id="mini_income_statement_net_profit" model="account.financial.html.report.line">
+        <field name="name">Net Profit</field>
+        <field name="code">NET</field>
+        <field name="sequence" eval="60"/>
+        <field name="level" eval="0"/>
+        <field name="formulas">balance = GP.balance - SAL.balance - RENT.balance - OTHEXP.balance - FINCOST.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="financial_report_id" ref="mini_income_statement"/>
+    </record>
+
+    <record id="mini_income_statement_net_profit_%" model="account.financial.html.report.line">
+        <field name="name">Net Profit %</field>
+        <field name="code">NETP</field>
+        <field name="sequence" eval="61"/>
+        <field name="level" eval="3"/>
+        <field name="figure_type">percents</field>
+        <field name="formulas">balance = NET.balance / SALES.balance</field>
+        <field name="special_date_changer">strict_range</field>
+        <field name="financial_report_id" ref="mini_income_statement"/>
+    </record>
+</odoo>

@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="context">{'default_is_key_member':True}</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_res_partner_kanban_view" model="ir.ui.view">
+            <field name="name">kanban.res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//kanban/templates/t/div/div/ul" position="before">
+                    <field name="medical_aid_id"/>
+               <!--     <field name="medical_aid_no" style="color: green;" /> -->
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="inherit_res_partner_search_view" model="ir.ui.view">
+            <field name="name">Search.Res.Partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name='first_name'/>
+                    <field name="surname"/>
+                    <field name='medical_aid_id'/>
+                    <field name='patient_number'/>
+                    <field name='id_number'/>
+                    <field name='individual_internal_ref'/>
+                    <field name='birth_date'/>
+                    <field name="old_system_no"/>
+                    <field name="file_no"/>
+                    <field name="patient_number"/>
+                    <field name="phone"/>
+                </xpath>
+                <xpath expr="//search//group" position="inside">
+                       <filter name="group_source" string="Sources" context="{'group_by': 'source_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_res_partner_search_view_test" model="ir.ui.view">
+            <field name="name">Search.Res.Partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="mobile" filter_domain="[('mobile','=',self)]"/>
+                    <field name="id_number" filter_domain="[('id_number','=',self,ilike)]"/>
+                    <field name="patient_number" filter_domain="[('patient_number','=',self)]"/>
+                    <field name="medical_aid_no" filter_domain="[('medical_aid_no','=',self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="medical_aid_search_view" model="ir.ui.view">
+            <field name="name">Medical Aid</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Medical Aid">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter name="filter_my_partners" help="My Partners"
+                           domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Customers" name="customer" domain="[('customer','=',1), ('parent_id', '=', False)]"/>
+                   <filter string="Vendors" name="supplier" domain="[('supplier','=',1), ('parent_id', '=', False)]"/>
+                   <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" name="group_by" string="Group By">
+                       <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter name="group_company" string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter name="group_country" string="Country" context="{'group_by': 'country_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+
+
+        <record id="aspl_inherit_res_partner_form_view" model="ir.ui.view">
+            <field name="name">Res Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']"
+                 position="after">
+                    <page string="Medical Aid Plans" attrs="{'invisible':[('is_a_medical_aid','!=',True)]}">
+                        <field name="medical_aid_plan_ids">
+                            <tree>
+                               <field name="code"/>
+                               <field name="name"/>
+                               <field name="medical_aid_id"/>
+                            </tree>
+                       </field>
+                    </page>
+                    <page string="MSV Ability" attrs="{'invisible':[('is_a_medical_aid','!=',True)]}">
+                        <group string="MSV Atributes" name="msv_attribute">
+                               <field name="msv_allowed"/>
+                               <field name="scr_allowed"/>
+                               <field name="st_allowed"/>
+                               <field name="mpc_allowed"/>
+                               <field name="era_active"/>
+                               <field name="ba_allowed"/>
+                               <field name="bc_allowed"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='child_ids']//kanban"
+                 position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]"
+                 position="attributes">
+                    <attribute name="string">Contacts</attribute>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]"
+                 position="attributes">
+                    <attribute name="attrs">{'invisible':[('is_key_member','!=',True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group/label"
+                 position="attributes">
+                    <attribute name="string">Postal Address</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group/div/field[@name='state_id']"
+                 position="attributes">
+                    <attribute name="placeholder">Province</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group/div/field[@name='zip']"
+                 position="attributes">
+                    <attribute name="placeholder">Postal Code</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group/field[@name='vat']"
+                 position="attributes">
+                    <attribute name="attrs">{'invisible':[('company_type','=','person')]}</attribute>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//form//sheet//field[@name='type']"
+                 position="after">
+                    <field name="contact_type" attrs="{'invisible':[('company_type','=','company')]}" widget="radio"/>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//form//sheet//field[@name='type']"
+                 position="attributes">
+                    <attribute name='attrs'>{'invisible':[('company_type','=','person')]}</attribute>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//form//sheet//field[@name='type']"
+                 position="after">
+                    <field name="company_type" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'required':['|','|',('company_type','=','company'),('is_a_medical_aid','=',True),('is_a_medical_aid_administrator','=',True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('company_type','=','person'),('customer','=',True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='child_ids']"
+                 position="before">
+                    <button type="object" string="Add a Dependent" attrs="{'invisible':[('company_type','!=','person')]}" name="res_partner_child_form" class="btn btn-primary"></button>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='child_ids']"
+                 position="before">
+                    <button type="object" string="Add a Item" name="res_partner_company_form" attrs="{'invisible':[('company_type','!=','company')]}" class="btn btn-primary"></button>
+                </xpath>
+
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='child_ids']"
+                 position="attributes">
+                    <attribute name="context">{'default_company_type':company_type,
+                                                'default_parent_id': active_id,
+                                                'default_street': street,
+                                                'default_street2': street2,
+                                                'default_city': city,
+                                                'default_state_id': state_id,
+                                                'default_zip': zip,
+                                                'default_country_id': country_id,
+                                                'default_supplier': supplier,
+                                                'default_customer': customer,
+                                                'default_lang': lang,
+                                                'default_is_key_member':is_key_member,
+                                                'form_view_ref':'TOMS.view_partner_dependent_contact_form'
+                                                }
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='accounting']"
+                 position="after">
+                    <page string="Addresses" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group>
+                            <group string="Home Address">
+                                <label for="home_street" string="Home Address"/>
+                                <div class="o_address_format">
+                                    <field name="home_street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="home_street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="home_city" placeholder="City" class="o_address_city"/>
+                                    <field name="home_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="home_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                    <field name="home_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                    <button type="object" name="copy_postal_address_to_home_add" string="COPY FROM POSTAL ADDRESS"></button>
+                                </div>
+                            </group>
+                            <group string="Work Address">
+                                <label for="work_street" string="Work Address"/>
+                                <div class="o_address_format">
+                                    <field name="work_street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="work_street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="work_city" placeholder="City" class="o_address_city"/>
+                                    <field name="work_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="work_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                    <field name="work_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="hway" string="Hello Who Are You?" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group>
+                            <group string="Sport" >
+                                <field name="sport" widget="many2many_tags"/>
+                            </group>
+                            <group string="Hobbies">
+                                <field name="hobby" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Does Your Occupation Involve?" >
+                                <field name="doesyour" widget="many2many_tags"/>
+                            </group>
+                            <group string="Do You...">
+                                <field name="doyou" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="after">
+                    <!-- <field name="source_ids" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}" widget="many2many_tags"/> -->
+                    <field name="source_id" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='title']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('customer','=',True),('company_type','=','person')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name="work_phone"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/group"
+                 position="before">
+                    <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group string="Account Details">
+                            <field name="individual_internal_ref" string="Account Number" readonly="1"/>
+                            <field name="patient_number" attrs="{'readonly':[('customer','=',True)]}"/>
+                            <field name="medical_aid_id" context="{'default_is_a_medical_aid':True,'default_customer':False}" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('is_a_medical_aid','=',True)]"/>
+                            <field name="option_id" string="Plan" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('medical_aid_id','=',medical_aid_id)]" context="{'default_medical_aid_id':medical_aid_id}"/>
+                            <field name="plan_option_id" string="Option" attrs="{'readonly':[('parent_id','!=',False)]}"  context="{'default_plan_id':option_id}"/>
+                            <field name="medical_aid_no"/>
+                            <field name="dependent_code"/>
+                            <field name="employer"/>
+                            <field name="occupation"/>
+                            <field name="is_key_member" invisible="1"/>
+                        </group>
+                        <group>
+                            <div style="font-size: 1.625rem;margin: 5px 0;">MSV Details</div>
+                            <div style="display:flex;">
+                                 <label for="msv_later_button" name="MSV Later" ></label>
+                                <div style="margin-left:86px;"><field name="msv_later_button" widget="boolean_toggle" string="MSV Later"></field></div>
+                            </div>
+                            <div style="display:flex;">
+                                 <label for="msv_status" name="MSV Status" ></label>
+                                <div style="margin-left:86px;"><field name="msv_status" string="MSV Status"></field></div>
+                            </div>
+                            <div style="display:flex;">
+                                <label for="msv_latest_date" name="Last MSV Date" string="Last MSV Date" style="width: 246px;"></label>
+                                <div style="margin-left: -100px;"><field name="msv_latest_date" readonly="1"/></div>
+                            </div>
+                            <group string="Personal Details">
+                                <field name="title"/>
+                                <field name="surname" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}" />
+    <!--                             attrs="{'required':[('company_type','=','person'),('customer','=',True)]}" -->
+                                <field name="initials"/>
+                                <field name="first_name" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}"/>
+                                <field name="nick_name"/>
+                                <field name="id_number" placeholder="enter at least first 5 (YYMMdd)" attrs="{'required':[('company_type','=','person')]}"/>
+                                <field name="is_dependent" invisible="1"/>
+                            </group>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                        <group>
+                            <field name="communication"/>
+                            <field name="file_no"/>
+                            <field name="old_system_no"/>
+                        </group>
+                        <group>
+                            <field name="birth_date"/>
+                            <field name="customer_language" string="language"/>
+                            <field name="gender" widget="radio" attrs="{'required':[('company_type','=','person')]}"/>
+                        </group>
+                    </group>
+
+
+<!--                    <group col="4" attrs="{'invisible':[('is_a_medical_aid','!=',True)]}">
+                        <field name="administrator_id" context="{'default_is_a_medical_aid_administrator':True}" domain="[('is_a_medical_aid_administrator','=',True)]"/>
+                        <field name="period_cycle"/>
+                        <field name="is_contracted"/>
+                        <field name="destination_code"/>
+                        <field name="scr_allowed"/>
+                        <field name="st_allowed"/>
+                        <field name="mpc_allowed"/>
+                        <field name="era_active"/>
+                        <field name="ba_allowed"/>
+                        <field name="bc_allowed"/>
+                    </group> -->
+                </xpath>
+                <xpath expr="//group[@name='sale']/field[@name='customer']"
+                 position="after">
+                    <field name="is_a_medical_aid"/>
+                </xpath>
+
+                <!--<xpath expr="//page[@name='sales_purchases']//group[3]//field[@name='ref']"-->
+                 <!--position="attributes">-->
+                    <!--<attribute name="readonly">True</attribute>-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='parent_id']"
+                 position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='purchase']/field[@name='supplier']"
+                 position="after">
+                    <field name="is_a_medical_aid_administrator"/>
+                    <field name="admin_code" invisible="1"/>
+                    <field name="medical_aid_key" invisible="1"/>
+                </xpath>
+
+                <!--
+                    make sure you update the below view manually at
+                    views/res_partner_contace.xml too
+                 -->
+                <xpath expr="//form//sheet//notebook//page[1]//field[@name='child_ids']//form//sheet"
+                    position="replace">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                        <div class="oe_title">
+                            <field name="is_company" invisible="1"/>
+                            <field name="commercial_partner_id" invisible="1"/>
+                            <field name="company_type" widget="radio"
+                                class="oe_edit_only"
+                                options="{'horizontal': true}" invisible="1"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <div class="o_row">
+                                <field name="parent_id" readonly="1"
+                                    placeholder="Company"
+                                    domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"
+                                    attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"/>
+                                <field name="company_name" attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"/>
+                                <button name="create_company" type="object" string="Create company" class="btn btn-sm oe_edit_only fa fa-external-link btn btn-link " attrs="{'invisible': ['|', '|', ('is_company','=', True), ('company_name', '=', ''), ('company_name', '=', False)]}"/>
+                            </div>
+                        </div>
+
+                        <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                            <group string="Account Details">
+                                <field name="individual_internal_ref" readonly="1"/>
+                                <field name="patient_number" attrs="{'readonly':[('customer','=',True)]}"/>
+                                <field name="medical_aid_id" context="{'default_is_a_medical_aid':True,'default_customer':False,'from_customer':True}" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('is_a_medical_aid','=',True)]"/>
+                                <field name="option_id" attrs="{'readonly':[('parent_id','!=',False)]}" domain="[('medical_aid_id','=',medical_aid_id)]" context="{'default_medical_aid_id':medical_aid_id}"/>
+                                <field name="plan_option_id" attrs="{'readonly':[('parent_id','!=',False)]}" context="{'default_plan_id':option_id}"/>
+                                <field name="employer"/>
+                                <field name="occupation"/>
+                                <field name="is_key_member" invisible="1"/>
+                            </group>
+                            <group string="Personal Details">
+                                <field name="title"/>
+                                <field name="surname" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}"/>
+                                <field name="initials"/>
+                                <field name="first_name" attrs="{'required':[('company_type','=','person'),('customer','=',True)]}"/>
+                                <field name="nick_name"/>
+                                <field name="id_number"/>
+                                <field name="is_dependent" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <group attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                            <group>
+                                <field name="communication"/>
+                                <field name="file_no"/>
+                                <field name="old_system_no"/>
+                            </group>
+                            <group>
+                                <field name="birth_date"/>
+                                <field name="gender" widget="radio"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="type" invisible="1" attrs="{'invisible': [('parent_id','=', False)]}" groups="base.group_no_one"/>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <div class="oe_edit_only">
+                                        <button name="open_parent" type="object" string="(edit)" invisible="1" class="oe_link"/>
+                                    </div>
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="Province" options='{"no_open": True}' context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="zip" placeholder="Postal Code" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                                </div>
+                                <field name="vat" placeholder="e.g. BE0477472701" invisible="1"/>
+                                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                            </group>
+                            <group>
+                                <field name="function" placeholder="e.g. Sales Director"
+                                    attrs="{'invisible': [('is_company','=', True)]}"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="mobile" widget="phone"/>
+                                <field name="user_ids" invisible="1"/>
+                                <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])]}"/>
+                                <field name="website" widget="url" placeholder="e.g. www.humint.co.za" attrs="{'invisible': [('company_type','=','person')]}"/>
+                                <field name="title" options='{"no_open": True}'
+                                    attrs="{'invisible': [('is_company', '=', True)]}"/>
+<!--                                <field name="lang"/>-->
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page name='internal_notes' string="Internal Notes">
+                                <field name="comment" placeholder="Internal note..."/>
+                            </page>
+                            <page name='sales_purchases' string="Sales &amp; Purchases">
+                                <group name="container_row_2">
+                                    <group string="Sale" name="sale">
+                                        <field name="customer"/>
+                                        <field name="is_a_medical_aid"/>
+                                        <field name="user_id"/>
+                                    </group>
+                                    <group string="Purchase" name="purchase">
+                                        <field name="supplier"/>
+                                        <field name="is_a_medical_aid_administrator"/>
+                                    </group>
+                                    <group string="Misc">
+                                        <field name="ref" readonly="1"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="industry_id" attrs="{'invisible': [('is_company', '=', False)]}" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Addresses" attrs="{'invisible':['|','|',('is_a_medical_aid','=',True),('company_type','!=','person'),('is_a_medical_aid_administrator','=',True)]}">
+                                <group>
+                                    <group string="Home Address">
+                                        <label for="home_street" string="Home Address"/>
+                                        <div class="o_address_format">
+                                            <field name="home_street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="home_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="home_city" placeholder="City" class="o_address_city"/>
+                                            <field name="home_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="home_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                            <field name="home_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                            <button type="object" name="copy_postal_address_to_home_add" string="COPY FROM POSTAL ADDRESS"></button>
+                                        </div>
+                                    </group>
+                                    <group string="Work Address">
+                                        <label for="work_street" string="Work Address"/>
+                                        <div class="o_address_format">
+                                            <field name="work_street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="work_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="work_city" placeholder="City" class="o_address_city"/>
+                                            <field name="work_state_id" class="o_address_state" placeholder="Province" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="work_zip" placeholder="Postal Code" class="o_address_zip"/>
+                                            <field name="work_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <record id="inherit_res_partner_form_view" model="ir.ui.view">
+            <field name="name">Res Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="last_exam_date" attrs="{'invisible':[('company_type','=','company')]}" readonly="1"/>
+                    <field name="recall_exam_date" attrs="{'invisible':[('company_type','=','company')]}" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='lang']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_medical_aid_administrator" model="ir.actions.act_window">
+            <field name="name">Medical Aid Administrator</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('is_a_medical_aid_administrator','=',True)]</field>
+            <field name="context">{'default_is_a_medical_aid_administrator':True,'default_customer':False}</field>
+            <field name="search_view_id" ref="medical_aid_search_view"/>
+        </record>
+
+        <record id="action_medical_aid_1" model="ir.actions.act_window">
+            <field name="name">Medical Aid</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('is_a_medical_aid','=',True)]</field>
+            <field name="context">{'default_is_a_medical_aid':True,'default_customer':False}</field>
+            <field name="search_view_id" ref="medical_aid_search_view"/>
+        </record>
+
+        <record id="toms_inherit_res_partner_tree_view" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='email']" position="replace">
+                    <field name="msv_later_button" widget="boolean_toggle" string="MSV Later"></field>
+                    <field name="msv_status"/>
+                    <field name="medical_aid_id" />
+                   <!-- <field name="email" invisible="1"/> -->
+                    <field name="medical_aid_no"/>
+                    <field name="ref"/>
+                    <field name="patient_number"/>
+                    <field name="id_number"/>
+                    <field name="dependent_code"/>
+                    <field name="credit" string="Amount Owing"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="medical_aid_administrator_tree_view_1" model="ir.ui.view">
+            <field name="name">Medical Aid Administrator</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="display_name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="medical_aid_tree_view" model="ir.ui.view">
+            <field name="name">Medical Aids</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="display_name"/>
+                    <field name="msv_allowed"/>
+                    <field name="scr_allowed"/>
+                    <field name="st_allowed"/>
+                    <field name="mpc_allowed"/>
+                    <field name="era_active"/>
+                    <field name="ba_allowed"/>
+                    <field name="bc_allowed"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="medical_aid_administrator_tree_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="TOMS.medical_aid_administrator_tree_view_1"/>
+            <field name="act_window_id" ref="TOMS.action_medical_aid_administrator"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="medical_aid_tree_view_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="TOMS.medical_aid_tree_view"/>
+            <field name="act_window_id" ref="TOMS.action_medical_aid_1"/>
+        </record>
+
+        <record id="contacts.action_contacts" model="ir.actions.act_window">
+            <field name="domain">['|',('customer','=',True),('supplier','=',True)]</field>
+        </record>
+
+
+
+<!-- View for the configuration of hello Who Are you Sport -->
+        <record id="hway_sport_view_tree" model="ir.ui.view">
+            <field name="name">hway_sport_view_tree</field>
+            <field name="model">hway.sport</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Action for the configuration of hello Who Are you Sport -->
+        <record id="hway_sport_action" model="ir.actions.act_window">
+            <field name="name">What Sprot do You Play</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hway.sport</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!-- View for the configuration of hello Who Are you Hobby -->
+        <record id="hway_hobby_view_tree" model="ir.ui.view">
+            <field name="name">hway_hobby_view_tree</field>
+            <field name="model">hway.hobby</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+<!-- Action for the configuration of hello Who Are you hobby -->
+        <record id="hway_hobby_action" model="ir.actions.act_window">
+            <field name="name">What Hobbys do you have</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hway.hobby</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!-- View for the configuration of hello Who Are you Do You -->
+        <record id="hway_doyou_view_tree" model="ir.ui.view">
+            <field name="name">hway_doyou_view_tree</field>
+            <field name="model">hway.doyou</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Action for the configuration of hello Who Are you Do You -->
+        <record id="hway_doyou_action" model="ir.actions.act_window">
+            <field name="name">Do You...</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hway.doyou</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!-- View for the configuration of hello Who Are you Does Your -->
+        <record id="hway_doesyour_view_tree" model="ir.ui.view">
+            <field name="name">hway_doesyour_view_tree</field>
+            <field name="model">hway.doesyour</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Action for the configuration of hello Who Are you Does Your -->
+        <record id="hway_doesyour_action" model="ir.actions.act_window">
+            <field name="name">Does Your Occupation Involve...</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hway.doesyour</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!-- View for the configuration of Cuatomer Language -->
+        <record id="customer_language_view_tree" model="ir.ui.view">
+            <field name="name">customer_language_view_tree</field>
+            <field name="model">customer.language</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Action for the configuration of customer language -->
+        <record id="customer_language_action" model="ir.actions.act_window">
+            <field name="name">Customer Language</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.language</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!-- View for the configuration of Cuatomer occupation -->
+        <record id="customer_occupation_view_tree" model="ir.ui.view">
+            <field name="name">customer_occupation_view_tree</field>
+            <field name="model">customer.language</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- Action for the configuration of customer occupation -->
+        <record id="customer_occupation_action" model="ir.actions.act_window">
+            <field name="name">Customer Occupation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.occupation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>
